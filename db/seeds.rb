@@ -162,11 +162,29 @@ User.destroy_all
 
 num_records.times do |row|
   User.create(email: Faker::Internet.email,
-              encrypted_password: Faker::Internet.password(8,20),
-              reset_password_token: Faker::Internet.password(8,20),
+              password: '12345678',
+              password_confirmation: '12345678',
               perimission_level: Faker::Number.between(0, 1),
               name: Faker::Name.first_name,
               score: Faker::Number.between(1, 5))
 end
 
 puts 'finished loading Users data'
+
+
+
+
+# User.create(email:"assian@gmail.com",name: "davidgantua" , password: "123456789", password_confirmation: "123456789")
+
+
+
+
+
+
+
+
+
+
+
+
+#
