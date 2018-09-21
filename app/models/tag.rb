@@ -4,11 +4,11 @@ class Tag < ApplicationRecord
 
 
   #validations
-  has_many :grouphastags
-  has_many :groups, through: :grouphastags
+  has_many :group_has_tags
+  has_many :groups, through: :group_has_tags
 
-  has_many :posthastags
-  has_many :posts, through: :posthastags
+  has_many :post_has_tags
+  has_many :posts, through: :post_has_tags
 
 
 end

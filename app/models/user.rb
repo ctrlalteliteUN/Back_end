@@ -18,11 +18,11 @@ class User < ApplicationRecord
   has_many :comments
   has_many :posts
 
-  has_many :servicehasusers
-  has_many :services, through: :servicehasusers
+  has_many :service_has_users
+  has_many :services, through: :service_has_users
 
-  has_many :userhasgroups
-  has_many :groups, through: :userhasgroups
+  has_many :user_has_groups
+  has_many :groups, through: :user_has_groups
 
 
   private

@@ -5,6 +5,6 @@ class Service < ApplicationRecord
   #associations
   belongs_to :post
 
-  has_many :servicehasusers
-  has_many :users, through: :servicehasusers
+  has_many :service_has_users
+  has_many :users, through: :service_has_users
 end

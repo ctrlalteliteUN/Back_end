@@ -5,13 +5,13 @@ class Group < ApplicationRecord
 
 
   #associations
-  has_many :grouphastags
-  has_many :tags, through: :grouphastags
+  has_many :group_has_tags
+  has_many :tags, through: :group_has_tags
 
-  has_many :posthastags
-  has_many :posts, through: :posthastags
+  has_many :post_has_tags
+  has_many :posts, through: :post_has_tags
 
-  has_many :userhasgroups
-  has_many :users, through: :userhasgroups
+  has_many :user_has_groups
+  has_many :users, through: :user_has_groups
 
 end
