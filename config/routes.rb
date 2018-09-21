@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :records
+  resources :services
+  resources :tags
+  resources :groups
   resources :comments
   resources :posts
   devise_for :users
