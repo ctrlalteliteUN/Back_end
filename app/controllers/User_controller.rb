@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class PostsController < ApplicationController
 
   # GET /posts
   def index
