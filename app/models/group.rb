@@ -1,7 +1,7 @@
 class Group < ApplicationRecord
 
 
-  validations :name, presence: true, length:{minimum: 7}
+  validates :name, presence: true, length:{minimum: 7}
 
 
   #associations
