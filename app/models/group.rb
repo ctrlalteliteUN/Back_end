@@ -5,6 +5,9 @@ class Group < ApplicationRecord
 
 
   #associations
+  has_many :posts
+
+
   has_many :group_has_tags
   has_many :tags, through: :group_has_tags
 

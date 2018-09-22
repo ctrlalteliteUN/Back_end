@@ -7,6 +7,7 @@ class Post < ApplicationRecord
 
   #associations
   belongs_to :user
+  belongs_to :group
   has_many :posthastags
   has_many :tags, through: :posthastags
 
