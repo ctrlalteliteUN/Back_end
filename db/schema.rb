@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_29_193845) do
+ActiveRecord::Schema.define(version: 2018_09_29_221249) do
 
   create_table "adm_groups", force: :cascade do |t|
     t.integer "user_id"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2018_09_29_193845) do
   end
 
   create_table "file_types", force: :cascade do |t|
-    t.string "type", null: false
+    t.string "tipo", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

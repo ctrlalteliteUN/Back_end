@@ -1,6 +1,6 @@
 class FileType < ApplicationRecord
   #validations
-  validates :type, presence: true, uniqueness: true
+  validates :tipo, presence: true, uniqueness: true
   
   #associations
   has_many :file
