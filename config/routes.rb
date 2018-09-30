@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   #resources :comments
   #resources :posts
   resources :users
+  resources :archivos
   resources :file_types
 
   resources :services

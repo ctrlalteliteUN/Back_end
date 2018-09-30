@@ -25,7 +25,7 @@ class FileTypesController < ApplicationController
 
   # PATCH/PUT /file_types/1
   def update
-    if @type.update(tag_params)
+    if @type.update(type_params)
       render json: @type
     else
       render json: @type.errors, status: :unprocessable_entity

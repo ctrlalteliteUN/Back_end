@@ -3,5 +3,5 @@ class FileType < ApplicationRecord
   validates :tipo, presence: true, uniqueness: true
   
   #associations
-  has_many :file
+  has_many :archivo
 end
