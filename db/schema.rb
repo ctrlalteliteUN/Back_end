@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_30_011413) do
+ActiveRecord::Schema.define(version: 2018_09_30_205015) do
 
   create_table "adm_groups", force: :cascade do |t|
     t.integer "user_id"
@@ -21,28 +21,16 @@ ActiveRecord::Schema.define(version: 2018_09_30_011413) do
     t.index ["user_id"], name: "index_adm_groups_on_user_id"
   end
 
-  create_table "archivo", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "post_id"
-    t.text "ruta", null: false
-    t.integer "file_type_id"
+  create_table "app_files", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["file_type_id"], name: "index_archivo_on_file_type_id"
-    t.index ["post_id"], name: "index_archivo_on_post_id"
-    t.index ["user_id"], name: "index_archivo_on_user_id"
-  end
-
-  create_table "archivos", force: :cascade do |t|
     t.integer "user_id"
     t.integer "post_id"
-    t.text "ruta", null: false
-    t.integer "file_type_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["file_type_id"], name: "index_archivos_on_file_type_id"
-    t.index ["post_id"], name: "index_archivos_on_post_id"
-    t.index ["user_id"], name: "index_archivos_on_user_id"
+    t.text "ruta", default: "-", null: false
+    t.integer "file_type_id", default: 1, null: false
+    t.index ["file_type_id"], name: "index_app_files_on_file_type_id"
+    t.index ["post_id"], name: "index_app_files_on_post_id"
+    t.index ["user_id"], name: "index_app_files_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|

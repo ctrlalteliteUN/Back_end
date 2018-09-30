@@ -1,4 +1,4 @@
-class Archivo < ApplicationRecord
+class AppFile < ApplicationRecord
   #validations
   validates :ruta, presence: true
   
@@ -9,7 +9,7 @@ class Archivo < ApplicationRecord
   
   def crear_archivo_disco
     decode_base64_content = Base64.decode64(self[:ruta]) 
-    File.open("files/#{FileType.find(Archivo.find(self[:id])[:file_type_id])[:tipo]}/#{self[:id]}.png", "wb") do |f|
+    File.open("files/#{FileType.find(AppFile.find(self[:id])[:file_type_id])[:tipo]}/#{self[:id]}.png", "wb") do |f|
       f.write(decode_base64_content)
     end
     self[:ruta] = "#{self[:id]}.png"
