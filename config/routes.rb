@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
+  resources :app_files
   resources :records
   resources :tags
   resources :groups
   #resources :comments
   #resources :posts
   resources :users
-  resources :archivos
   resources :file_types
 
   resources :services
