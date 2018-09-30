@@ -1,4 +1,5 @@
 class Record < ApplicationRecord
   belongs_to :user
-  belongs_to :service
+  has_many :services
+  
 end

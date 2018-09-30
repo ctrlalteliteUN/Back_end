@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :update, :destroy]
+  before_action :set_post
 
   # GET /comments
   def index
@@ -16,6 +17,8 @@ class CommentsController < ApplicationController
   # POST /comments
   def create
     @comment = Comment.new(comment_params)
+
+    @comment.post = @post
 
     if @comment.save
       render json: @comment, status: :created, location: @comment
@@ -40,6 +43,10 @@ class CommentsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_post
+      @article = Post.find(params[:post_id])
+    end
+
     def set_comment
       @comment = Comment.find(params[:id])
     end
