@@ -1,7 +1,5 @@
 class QuitoTablas < ActiveRecord::Migration[5.2]
   def change
-    drop_table :archivo
-    drop_table :archivos
     
     change_table :app_files do |t|
       t.references :user, foreign_key: true

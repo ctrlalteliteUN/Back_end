@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
-  #resources :comments
-  #resources :posts
-=======
+
   resources :app_files
   resources :records
   resources :tags
@@ -11,14 +8,13 @@ Rails.application.routes.draw do
   #resources :posts
   resources :users
   resources :file_types
->>>>>>> c6883b0991d8dc7c05eb1b02187fa389a3aab2ca
 
   resources :users do
     resources :records
   end
 
   resources :services
-  
+
   resources :posts do
     resources :comments, only: [:create,:destroy,:update, :show]
     resources :tags
