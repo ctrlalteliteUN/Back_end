@@ -14,8 +14,6 @@ class TagsController < ApplicationController
       @tags.push(Tag.where(id: tag[:tag_id]))
     end
     render json: @tags
-
-
   end
 
   # GET /tags/1
