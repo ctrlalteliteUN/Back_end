@@ -1,4 +1,5 @@
 class AppFilesController < ApplicationController
+  before_action :set_app_files, only: [:show, :update, :destroy]
   # GET /app_files
   def index
     @archivos = AppFile.all
@@ -8,8 +9,8 @@ class AppFilesController < ApplicationController
 
   # GET /app_files/1
   def show
-    @operacion = send_file("files/#{FileType.find(AppFile.find(params[:id])[:file_type_id])[:tipo]}/#{AppFile.find(params[:id])[:ruta]}",
-  :filename => AppFile.find(params[:id])[:ruta],
+    @operacion = send_file("files/#{FileType.find(@app_file[:file_type_id])[:tipo]}/#{@app_file[:ruta]}",
+  :filename => @app_file[:ruta],
   :type => "'application/png'")
   end
 
@@ -24,15 +25,33 @@ class AppFilesController < ApplicationController
       render json: @archivo.errors, status: :unprocessable_entity
     end
   end
+  
+  # PATCH/PUT /app_files/1
+  def update
+    if @app_file.update(app_file_params)
+      @app_file.crear_archivo_disco
+      render json: @app_file, status: :updated, location: @app_file
+    else
+      render json: @app_file.errors, status: :unprocessable_entity
+    end
+  end
 
   # DELETE /app_files/1
   def destroy
-    File.delete("files/#{FileType.find(AppFile.find(params[:id])[:file_type_id])[:tipo]}/#{AppFile.find(params[:id])[:ruta]}") if File.exist?("files/#{FileType.find(AppFile.find(params[:id])[:file_type_id])[:tipo]}/#{AppFile.find(params[:id])[:ruta]}")
-    AppFile.find(params[:id]).destroy
+    if @app_file.destroy
+      File.delete("files/#{FileType.find(@app_file[:file_type_id])[:tipo]}/#{@app_file[:ruta]}") if File.exist?("files/#{FileType.find(@app_file[:file_type_id])[:tipo]}/#{@app_file[:ruta]}")
+      render json: @app_file, status: deleted, location: @app_file
+    else
+      render json: @app_file.errors, status: :unprocessable_entity
+    end
   end
   
   private
+    def set_app_files
+      @app_file = AppFile.find(params[:id])
+    end
+    
     def app_file_params
-      params.require(:app_file).permit(:ruta,:file_type_id,:user_id,:post_id)
+      params.require(:app_file).permit(:id,:ruta,:file_type_id,:user_id,:post_id)
     end
 end

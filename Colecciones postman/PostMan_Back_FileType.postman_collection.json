@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "56056960-4847-4f3c-9cc3-ae19eb8bfe0a",
+		"name": "PostMan_Back_FileType",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET ALL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:3000/file_types",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file_types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ID 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:3000/file_types/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file_types",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"file_type\":{\"tipo\":\"Imagen\"}}"
+				},
+				"url": {
+					"raw": "localhost:3000/file_types",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file_types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT 1",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"file_type\":{\"tipo\":\"Imagen2\"}}"
+				},
+				"url": {
+					"raw": "localhost:3000/file_types/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file_types",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE 1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:3000/file_types/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file_types",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

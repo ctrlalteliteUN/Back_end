@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /posts
   def index
@@ -38,9 +39,12 @@ class UsersController < ApplicationController
   end
 
   private
+    def set_user
+      @user = User.find(params[:id])
+    end
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      #params.require(:post).permit(:user_id, :title, :body, :solicitud)
+      params.require(:post).permit(:user_id, :title, :body, :solicitud)
     end
 end

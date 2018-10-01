@@ -3,7 +3,7 @@ class AppFile < ApplicationRecord
   validates :ruta, presence: true
   
   #associations
-  belongs_to :file_type
+  belongs_to :file_type, dependent: :destroy
   belongs_to :user, optional: true
   belongs_to :post, optional: true
   
