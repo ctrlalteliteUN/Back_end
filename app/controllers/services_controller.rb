@@ -4,7 +4,8 @@ class ServicesController < ApplicationController
   # GET /services
   def index
     @services = Service.all
-
+    #Service.create( score: 3, post_id: 1)
+    #@services = Service.create( score: 3, post_id: 1)
     render json: @services
   end
 
