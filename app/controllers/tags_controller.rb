@@ -7,9 +7,14 @@ class TagsController < ApplicationController
     #@tags = Tag.all
     #@tags = Tag.where(post_id: params[:post_id])
     @post_has_tag = PostHasTag.where(post_id: params[:post_id])
-    @tags = Tag.where(id: @post_has_tag[0][:tag_id])
     #@tags = Tag.where(id: 1)
+    @tags = Array.new
+
+    @post_has_tag.each do |tag|
+      @tags.push(Tag.where(id: tag[:tag_id]))
+    end
     render json: @tags
+
 
   end
 
@@ -21,10 +26,13 @@ class TagsController < ApplicationController
   # POST /tags
   def create
     @tag = Tag.new(tag_params)
-    @tag.post = @post
+    #association between post
 
     if @tag.save
-      render json: @tag, status: :created, location: @tag
+      @post_has_tag = PostHasTag.new(tag_id: @tag.id, post_id: params[:post_id])
+      if @post_has_tag.save
+        render json: @tag, status: :created, location: @tag
+      end
     else
       render json: @tag.errors, status: :unprocessable_entity
     end
