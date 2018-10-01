@@ -17,9 +17,11 @@ Rails.application.routes.draw do
   resources :services
 
   resources :posts do
-    resources :comments#, only: [:create,:destroy,:update, :show]
+    resources :comments #, only: [:create,:destroy,:update, :show]
     resources :tags
   end
+
+  resources :comments
 
   resources :groups do
     resources :posts
