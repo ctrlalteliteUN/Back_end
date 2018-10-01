@@ -1,11 +1,16 @@
 class TagsController < ApplicationController
   before_action :set_tag, only: [:show, :update, :destroy]
+  before_action :set_post
 
   # GET /tags
   def index
-    @tags = Tag.all
-
+    #@tags = Tag.all
+    #@tags = Tag.where(post_id: params[:post_id])
+    @post_has_tag = PostHasTag.where(post_id: params[:post_id])
+    @tags = Tag.where(id: @post_has_tag[0][:tag_id])
+    #@tags = Tag.where(id: 1)
     render json: @tags
+
   end
 
   # GET /tags/1
@@ -16,6 +21,7 @@ class TagsController < ApplicationController
   # POST /tags
   def create
     @tag = Tag.new(tag_params)
+    @tag.post = @post
 
     if @tag.save
       render json: @tag, status: :created, location: @tag
@@ -40,6 +46,10 @@ class TagsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_post
+      @post = Post.find(params[:post_id])
+    end
+
     def set_tag
       @tag = Tag.find(params[:id])
     end

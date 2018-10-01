@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :app_files
   resources :records
-  resources :tags
+  #resources :tags
   resources :groups
   #resources :comments
   #resources :posts
