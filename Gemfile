@@ -7,9 +7,9 @@ gem 'rails', '~> 5.2.1'
 # Use sqlite3 as the database for Active Record
 
 
-#devise gem for user authentication
 gem 'devise'
-
+#devise gem for user authentication
+gem 'simple_token_authentication', '~> 1.0' # see semver.org
 gem 'faker', '~> 1.9', '>= 1.9.1'
 
 

@@ -15,8 +15,8 @@ class User < ApplicationRecord
 
 
   #associations
-  has_many :comments
   has_many :posts
+  has_many :comments, through: :posts
 
   has_many :service_has_users
   has_many :services, through: :service_has_users
