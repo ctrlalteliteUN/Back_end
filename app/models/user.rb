@@ -31,6 +31,15 @@ class User < ApplicationRecord
     self.score = 5
   end
 
+  #usuarios con el nombre de "name"
+  scope :users1, -> (name) { where(name: name) }
+  #usuarios que tienen como dominio de correo gmail.com
 
+  scope :gmailEmail, -> {where("email LIKE ?", "%gmail.com")}
+  #muestra solamente el name y el email de los usuarios
+
+  scope :selectNameEmail, -> {select("name, email")}
+
+  scope :usersServiceFutbolpluckIdEmail, -> {joins(:service).where(title:"%futbol%").pluck(:id, :email)}
 
 end

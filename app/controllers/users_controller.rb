@@ -3,9 +3,21 @@ class UsersController < ApplicationController
 
   # GET /posts
   def index
-    @users = User.all
 
-    render json: @users
+      if params[:name] != nil
+      @users = User.users1(params[:name])
+
+
+      else
+        @users = User.all
+
+        #@users = User.gmailEmail
+        #@users = User.selectNameEmail
+        #@users = User.usersServiceFutbolpluckIdEmail
+      end
+      render json: @users
+
+
   end
 
   # GET /posts/1
