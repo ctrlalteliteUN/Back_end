@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   # GET /posts
   def index
 
+
       if params[:name] != nil
       @users = User.users1(params[:name])
 

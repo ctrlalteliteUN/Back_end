@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   resources :groups
   #resources :comments
   #resources :posts
-  resources :users
+  #resources :users
   resources :file_types
+
+  resources :sessions, only:[:create,:destroy]
 
   resources :users do
     resources :records
@@ -27,7 +29,8 @@ Rails.application.routes.draw do
     resources :posts
   end
 
-  #devise_for :users
+  devise_for :users, defaults: { format: :json }
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 end
