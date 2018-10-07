@@ -11,6 +11,9 @@ gem 'devise'
 #devise gem for user authentication
 gem 'simple_token_authentication', '~> 1.0' # see semver.org
 gem 'faker', '~> 1.9', '>= 1.9.1'
+gem 'annotate', '~> 2.7'
+gem 'will_paginate', '~> 3.1.0'
+
 
 
 

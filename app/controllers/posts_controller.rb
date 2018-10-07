@@ -3,7 +3,13 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.all
+    @posts = Post.paginate(:page => params[:page], :per_page => 2)
+
+    #@posts = Post.selectIdBody
+
+    #@posts = Post.youBody
+
+    #@posts = Post.postsTagsEpluckIdTitle
 
     render json: @posts
   end

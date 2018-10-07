@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: services
+#
+#  id         :integer          not null, primary key
+#  score      :integer
+#  post_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Service < ApplicationRecord
 
   validates :score, presence: true

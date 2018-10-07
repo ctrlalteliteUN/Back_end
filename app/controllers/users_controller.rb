@@ -10,10 +10,11 @@ class UsersController < ApplicationController
 
 
       else
-        @users = User.all
+        @users = User.paginate(:page => params[:page], :per_page => 2)
 
         #@users = User.gmailEmail
         #@users = User.selectNameEmail
+        #@users = User.usersServiceFutbolpluckIdEmail
         #@users = User.usersServiceFutbolpluckIdEmail
       end
       render json: @users

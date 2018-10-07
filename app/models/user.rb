@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :integer          not null, primary key
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  perimission_level      :integer
+#  name                   :string
+#  score                  :float
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+
 class User < ApplicationRecord
 
   #acts_as_token_authenticatable
@@ -43,7 +60,8 @@ class User < ApplicationRecord
   #muestra solamente el name y el email de los usuarios
 
   scope :selectNameEmail, -> {select("name, email")}
+  #muestra el id y el email de los usuarios que prestan un servicio en cuyo titulo contiene la palabra futbol
 
-  scope :usersServiceFutbolpluckIdEmail, -> {joins(:service).where(title:"%futbol%").pluck(:id, :email)}
+  scope :usersServiceFutbolpluckIdEmail, -> {joins(:posts).where("title LIKE ?", "%futbol%").pluck(:id, :email)}
 
 end
