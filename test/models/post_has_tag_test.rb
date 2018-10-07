@@ -3,10 +3,15 @@
 # Table name: post_has_tags
 #
 #  id         :integer          not null, primary key
-#  post_id    :integer
-#  tag_id     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  post_id    :integer
+#  tag_id     :integer
+#
+# Indexes
+#
+#  index_post_has_tags_on_post_id  (post_id)
+#  index_post_has_tags_on_tag_id   (tag_id)
 #
 
 require 'test_helper'

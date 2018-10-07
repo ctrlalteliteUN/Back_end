@@ -4,9 +4,13 @@
 #
 #  id         :integer          not null, primary key
 #  score      :integer
-#  post_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  post_id    :integer
+#
+# Indexes
+#
+#  index_services_on_post_id  (post_id)
 #
 
 class Service < ApplicationRecord

@@ -3,10 +3,15 @@
 # Table name: records
 #
 #  id         :integer          not null, primary key
-#  user_id    :integer
-#  service_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  service_id :integer
+#  user_id    :integer
+#
+# Indexes
+#
+#  index_records_on_service_id  (service_id)
+#  index_records_on_user_id     (user_id)
 #
 
 require 'test_helper'
