@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: posts
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  title      :string
+#  body       :text
+#  solicitud  :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Post < ApplicationRecord
 
   validates :title, presence: true, length:{minimum: 5}
