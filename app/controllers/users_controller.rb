@@ -14,6 +14,7 @@ class UsersController < ApplicationController
         #@users = User.gmailEmail
         #@users = User.selectNameEmail
         #@users = User.usersServiceFutbolpluckIdEmail
+        #@users = User.usersServiceFutbolpluckIdEmail
       end
       render json: @users
 

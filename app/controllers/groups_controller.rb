@@ -3,7 +3,11 @@ class GroupsController < ApplicationController
 
   # GET /groups
   def index
-    @groups = Group.all
+    #@groups = Group.all
+    #@groups = Group.nameSons
+    #@groups = Group.selectIdName
+    @groups = Group.groupsUseropluckIdName
+
 
     render json: @groups
   end

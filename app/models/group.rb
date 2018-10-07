@@ -17,4 +17,16 @@ class Group < ApplicationRecord
   has_many :user_has_groups
   has_many :users, through: :user_has_groups
 
+
+
+
+  #muestra solo el id y body de todos los post
+  scope :selectIdName, -> {select("id,name")}
+
+
+  #grupos cuyo nombre contenga "sons"
+  scope :nameSons, -> {where("name LIKE ?", "%sons%")}
+  #id y name de grupos en los cuales este un usuario cuyo nombre tenga una o
+  scope :groupsUseropluckIdName, -> {joins(:users).where("users.name LIKE ?", "%o%").pluck(:id,'groups.name')}
+
 end

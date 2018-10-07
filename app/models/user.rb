@@ -39,7 +39,8 @@ class User < ApplicationRecord
   #muestra solamente el name y el email de los usuarios
 
   scope :selectNameEmail, -> {select("name, email")}
+  #muestra el id y el email de los usuarios que prestan un servicio en cuyo titulo contiene la palabra futbol
 
-  scope :usersServiceFutbolpluckIdEmail, -> {joins(:service).where(title:"%futbol%").pluck(:id, :email)}
+  scope :usersServiceFutbolpluckIdEmail, -> {joins(:posts).where("title LIKE ?", "%futbol%").pluck(:id, :email)}
 
 end

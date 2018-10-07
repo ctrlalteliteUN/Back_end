@@ -161,3 +161,13 @@ num_records.times do |row|
 end
 
 puts 'finished loading UserHasGroupss data'
+# PostHasTag creation
+puts 'started loading PostHasTag data'
+#PostHasTag.reset_pk_sequence
+
+num_records.times do |row|
+  PostHasTag.create(post_id: Faker::Number.between(1, num_records),
+                    tag_id: Faker::Number.between(1, num_records))
+end
+
+puts 'finished loading PostHasTag data'

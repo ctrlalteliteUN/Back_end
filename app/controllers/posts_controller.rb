@@ -3,7 +3,13 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.all
+    #@posts = Post.all
+
+    #@posts = Post.selectIdBody
+
+    #@posts = Post.youBody
+
+    @posts = Post.postsTagsEpluckIdTitle
 
     render json: @posts
   end
