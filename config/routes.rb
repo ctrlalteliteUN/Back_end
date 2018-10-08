@@ -102,7 +102,7 @@ Rails.application.routes.draw do
   #resources :users
   resources :file_types
 
-  resources :sessions, only:[:create,:destroy]
+  resources :sessions, only:[:create,:destroy], defaults:{format: :json}
 
   resources :users do
     resources :records
