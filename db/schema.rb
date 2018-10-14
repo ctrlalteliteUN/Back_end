@@ -12,9 +12,12 @@
 
 ActiveRecord::Schema.define(version: 2018_10_07_013129) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "adm_groups", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "group_id"
+    t.bigint "user_id"
+    t.bigint "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_adm_groups_on_group_id"
@@ -24,18 +27,18 @@ ActiveRecord::Schema.define(version: 2018_10_07_013129) do
   create_table "app_files", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "post_id"
+    t.bigint "user_id"
+    t.bigint "post_id"
     t.text "ruta", default: "-", null: false
-    t.integer "file_type_id", default: 1, null: false
+    t.bigint "file_type_id", default: 1, null: false
     t.index ["file_type_id"], name: "index_app_files_on_file_type_id"
     t.index ["post_id"], name: "index_app_files_on_post_id"
     t.index ["user_id"], name: "index_app_files_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "post_id"
+    t.bigint "user_id"
+    t.bigint "post_id"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -50,8 +53,8 @@ ActiveRecord::Schema.define(version: 2018_10_07_013129) do
   end
 
   create_table "group_has_tags", force: :cascade do |t|
-    t.integer "group_id"
-    t.integer "tag_id"
+    t.bigint "group_id"
+    t.bigint "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_group_has_tags_on_group_id"
@@ -65,8 +68,8 @@ ActiveRecord::Schema.define(version: 2018_10_07_013129) do
   end
 
   create_table "post_has_tags", force: :cascade do |t|
-    t.integer "post_id"
-    t.integer "tag_id"
+    t.bigint "post_id"
+    t.bigint "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_post_has_tags_on_post_id"
@@ -74,7 +77,7 @@ ActiveRecord::Schema.define(version: 2018_10_07_013129) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "title"
     t.text "body"
     t.integer "solicitud"
@@ -84,8 +87,8 @@ ActiveRecord::Schema.define(version: 2018_10_07_013129) do
   end
 
   create_table "records", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "service_id"
+    t.bigint "user_id"
+    t.bigint "service_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["service_id"], name: "index_records_on_service_id"
@@ -93,8 +96,8 @@ ActiveRecord::Schema.define(version: 2018_10_07_013129) do
   end
 
   create_table "service_has_users", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "service_id"
+    t.bigint "user_id"
+    t.bigint "service_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["service_id"], name: "index_service_has_users_on_service_id"
@@ -103,7 +106,7 @@ ActiveRecord::Schema.define(version: 2018_10_07_013129) do
 
   create_table "services", force: :cascade do |t|
     t.integer "score"
-    t.integer "post_id"
+    t.bigint "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_services_on_post_id"
@@ -116,8 +119,8 @@ ActiveRecord::Schema.define(version: 2018_10_07_013129) do
   end
 
   create_table "user_has_groups", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "group_id"
+    t.bigint "user_id"
+    t.bigint "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_user_has_groups_on_group_id"
@@ -143,4 +146,23 @@ ActiveRecord::Schema.define(version: 2018_10_07_013129) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "adm_groups", "groups"
+  add_foreign_key "adm_groups", "users"
+  add_foreign_key "app_files", "file_types"
+  add_foreign_key "app_files", "posts"
+  add_foreign_key "app_files", "users"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "group_has_tags", "groups"
+  add_foreign_key "group_has_tags", "tags"
+  add_foreign_key "post_has_tags", "posts"
+  add_foreign_key "post_has_tags", "tags"
+  add_foreign_key "posts", "users"
+  add_foreign_key "records", "services"
+  add_foreign_key "records", "users"
+  add_foreign_key "service_has_users", "services"
+  add_foreign_key "service_has_users", "users"
+  add_foreign_key "services", "posts"
+  add_foreign_key "user_has_groups", "groups"
+  add_foreign_key "user_has_groups", "users"
 end

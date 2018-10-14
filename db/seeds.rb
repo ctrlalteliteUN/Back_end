@@ -105,7 +105,16 @@ num_records.times do |row|
 end
 
 puts 'finished loading Post data'
+# Services creation
+puts 'started loading Services data'
+#Service.reset_pk_sequence
 
+num_records.times do |row|
+  Service.create(score: Faker::Number.between(1, 5),
+                 post_id: Faker::Number.between(1, num_records))
+end
+
+puts 'finished loading Services data'
 # Records creation
 puts 'started loading Records data'
 #Record.reset_pk_sequence
@@ -129,16 +138,7 @@ end
 
 puts 'finished loading ServiceHasUsers data'
 
-# Services creation
-puts 'started loading Services data'
-#Service.reset_pk_sequence
 
-num_records.times do |row|
-  Service.create(score: Faker::Number.between(1, 5),
-                 post_id: Faker::Number.between(1, num_records))
-end
-
-puts 'finished loading Services data'
 
 # Tags creation
 puts 'started loading Tags data'
