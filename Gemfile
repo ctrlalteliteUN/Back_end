@@ -5,7 +5,7 @@ ruby '2.5.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
 # Use sqlite3 as the database for Active Record
-
+gem 'active_model_serializers', '~> 0.10.0'
 
 gem 'devise'
 #devise gem for user authentication

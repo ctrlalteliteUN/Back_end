@@ -62,7 +62,7 @@ class User < ApplicationRecord
   end
 
   #usuarios con el nombre de "name"
-  scope :users1, -> (name) { where(name: name) }
+  scope :users1, ->(name) { where(name: name) }
   #usuarios que tienen como dominio de correo gmail.com
 
   scope :gmailEmail, -> {where("email LIKE ?", "%gmail.com")}
