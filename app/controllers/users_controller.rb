@@ -6,9 +6,11 @@ class UsersController < ApplicationController
 
 
       if params[:name] != nil
-      @users = User.users1(params[:name])
+      @users = User.users1(params[:name]).paginate(:page => params[:page], :per_page => 5)
 
+      elsif params[:email] != nil
 
+        @users = User.userse(params[:email]).paginate(:page => params[:page], :per_page => 5)
       else
         @users = User.paginate(:page => params[:page], :per_page => 2)
 

@@ -63,14 +63,17 @@ class User < ApplicationRecord
 
   #usuarios con el nombre de "name"
   scope :users1, ->(name) { where(name: name) }
+
+  #usuarios con el nombre de "name"
+  scope :userse, ->(email) { where(email: email) }
   #usuarios que tienen como dominio de correo gmail.com
 
   scope :gmailEmail, -> {where("email LIKE ?", "%gmail.com")}
   #muestra solamente el name y el email de los usuarios
 
   scope :selectNameEmail, -> {select("name, email")}
-  #muestra el id y el email de los usuarios que prestan un servicio en cuyo titulo contiene la palabra futbol
 
-  scope :usersServiceFutbolpluckIdEmail, -> {joins(:posts).where("title LIKE ?", "%futbol%").pluck(:id, :email)}
+
+
 
 end
