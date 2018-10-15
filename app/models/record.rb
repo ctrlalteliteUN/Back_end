@@ -21,6 +21,6 @@
 
 class Record < ApplicationRecord
   belongs_to :user
-  has_many :services
+  has_one :service
   
 end

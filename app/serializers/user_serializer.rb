@@ -26,7 +26,6 @@
 
 class UserSerializer < ActiveModel::Serializer
   attributes :id,:authentication_token,:email,:encrypted_password,:name,:password,:password_confirmation,:perimission_level,:remember_created_at,:reset_password_sent_at,:reset_password_token,:score,:created_at,:updated_at
-
   has_many :posts
   has_many :comments, through: :posts
 
