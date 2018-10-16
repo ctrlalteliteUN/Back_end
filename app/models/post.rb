@@ -41,5 +41,20 @@ class Post < ApplicationRecord
   #grupos que tienen la palabra body en el body
   scope :youBody, -> {where("body LIKE ?", "%you%")}
   #Muestra el id y el title de los post que tienen la etiqueta samsung
-  scope :postsTagsEpluckIdTitle, -> {joins(:tags).where("name LIKE ?", "Samsung").pluck(:id, :title)}
+  scope :postsTagsEpluckIdTitle, -> (name){joins(:tags).where("name LIKE ?", name )}
+
+
+
+
+
+
+  def self.pt(name)
+
+
+    postsTagsEpluckIdTitle(name)
+
+
+  end
+
+
 end

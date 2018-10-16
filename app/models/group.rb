@@ -10,8 +10,7 @@
 
 class Group < ApplicationRecord
 
-  scope :groupsUser, ->(id){joins(:users).where("users.id = ?",id)}
-  scope :groupsUser2, ->(name){joins(:users).where("users.name LIKE ?",name)}
+
   validates :name, presence: true, length:{minimum: 7}
 
 
@@ -37,13 +36,15 @@ class Group < ApplicationRecord
 
   #grupos cuyo nombre contenga "sons"
   scope :nameSons, -> {where("name LIKE ?", "%sons%")}
-  #id y name de grupos en los cuales este un usuario cuyo nombre tenga una o
-  #scope :groupsUseropluckIdName, -> (name){joins(:users).where("users.name LIKE ?", name)}
+
+  scope :groupsUserbyid, ->(id){joins(:users).where("users.id = ?",id)}
+  scope :groupsUserbyname, ->(name){joins(:users).where("users.name LIKE ?",name)}
+
 
 def self.gu(id)
 
 
-   groupsUser(id)
+   groupsUserbyid(id)
 
 
 end
@@ -52,7 +53,7 @@ end
   def self.gu2(nombre)
 
 
-    groupsUser2(nombre)
+    groupsUserbyname(nombre)
 
 
   end
