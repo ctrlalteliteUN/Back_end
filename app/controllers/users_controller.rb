@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
 
       if params[:name] != nil
+
       @users = User.users1(params[:name]).paginate(:page => params[:page],:per_page => params[:per_page])
 
       elsif params[:email] != nil
@@ -13,7 +14,6 @@ class UsersController < ApplicationController
         @users = User.userse(params[:email]).paginate(:page => params[:page],:per_page => params[:per_page])
       else
         @users = User.paginate(:page => params[:page],:per_page => params[:per_page])
-
         #@users = User.gmailEmail
         #@users = User.selectNameEmail.as_json(except: [:authentication_token])
         #@users = User.usersServiceFutbolpluckIdEmail
