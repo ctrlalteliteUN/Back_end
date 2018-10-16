@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_07_013129) do
+ActiveRecord::Schema.define(version: 2018_10_15_215839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,8 @@ ActiveRecord::Schema.define(version: 2018_10_07_013129) do
     t.integer "solicitud"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "group_id"
+    t.index ["group_id"], name: "index_posts_on_group_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -157,6 +159,7 @@ ActiveRecord::Schema.define(version: 2018_10_07_013129) do
   add_foreign_key "group_has_tags", "tags"
   add_foreign_key "post_has_tags", "posts"
   add_foreign_key "post_has_tags", "tags"
+  add_foreign_key "posts", "groups"
   add_foreign_key "posts", "users"
   add_foreign_key "records", "services"
   add_foreign_key "records", "users"
