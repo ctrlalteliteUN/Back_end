@@ -5,9 +5,13 @@ class AppFilesController < ApplicationController
     if params[:ProfilePhoto].present?
       if params[:user_id] != nil
         consulta = AppFile.foto_perfil(params[:user_id])
-        operacion = send_file("files/#{FileType.find(consulta[:file_type_id])[:tipo]}/#{consulta[:ruta]}",
-      :filename => consulta[:ruta],
-      :type => "'application/png'")
+        if !consulta.blank?
+          operacion = send_file("files/#{FileType.find(consulta[0][:file_type_id])[:tipo]}/#{consulta[0][:ruta]}",
+        :filename => consulta[0][:ruta],
+        :type => "'application/png'")
+        else
+          render json: output = {'error' => 'El usuario no existe o no tiene foto de perfil almacenada'}.to_json
+        end
       else
         render json: output = {'error' => 'Especifique la id del usuario'}.to_json
       end

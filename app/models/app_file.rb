@@ -34,7 +34,7 @@ class AppFile < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :post, optional: true
   
-  scope :pp,->(id){where("user_id = ? ", id).where("description LIKE 'foto_perfil'").first}
+  scope :pp,->(id){where("user_id = ? ", id).where("description LIKE 'foto_perfil'")}
   
   def crear_archivo_disco
     decode_base64_content = Base64.decode64(self[:ruta]) 
