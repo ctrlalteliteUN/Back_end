@@ -3,7 +3,31 @@ class GroupsController < ApplicationController
 
   # GET /groups
   def index
-    @groups = Group.all
+    #@groups = Group.paginate(:page => params[:page], :per_page => 2)
+    #@groups = Group.nameSons
+    #@groups = Group.selectIdName
+    #@groups = Group.groupsUseropluckIdName
+   #id=User.find(params[:id])
+   #@groups= Group.gu(id)
+    if params[:groupsUserbyname] != nil
+    nombre=User.paginate(:page => params[:page],:per_page => params[:per_page]).find_by_name(params[:groupsUserbyname]).name
+    @groups= Group.gu2(nombre)
+
+
+    elsif params[:groupsUserbyid] != nil
+
+      id=User.paginate(:page => params[:page],:per_page => params[:per_page]).find_by_id(params[:groupsUserbyid]).id
+      @groups= Group.gu(id)
+
+
+
+    else
+
+      @groups =Group.paginate(:page => params[:page],:per_page => params[:per_page])
+
+
+    end
+
 
     render json: @groups
   end

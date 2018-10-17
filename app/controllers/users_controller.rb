@@ -3,9 +3,29 @@ class UsersController < ApplicationController
 
   # GET /posts
   def index
-    @users = User.all
 
-    render json: @users
+
+      if params[:name] != nil
+
+      @users = User.users1(params[:name]).paginate(:page => params[:page],:per_page => params[:per_page])
+
+      elsif params[:email] != nil
+
+        @users = User.userse(params[:email]).paginate(:page => params[:page],:per_page => params[:per_page])
+      elsif params[:selectNameEmail] =="1"
+        #@users = User.paginate(:page => params[:page],:per_page => params[:per_page])
+        #@users = User.gmailEmail.paginate(:page => params[:page],:per_page => params[:per_page])
+
+        @users = User.selectNameEmail.paginate(:page => params[:page],:per_page => params[:per_page]).as_json(except: [:authentication_token])
+        #@users = User.usersServiceFutbolpluckIdEmail.paginate(:page => params[:page],:per_page => params[:per_page])
+        #@users = User.usersServiceFutbolpluckIdEmail.paginate(:page => params[:page],:per_page => params[:per_page])
+
+      else
+        @users = User.paginate(:page => params[:page],:per_page => params[:per_page])
+      end
+      render json: @users
+
+
   end
 
   # GET /posts/1

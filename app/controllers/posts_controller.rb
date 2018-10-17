@@ -3,7 +3,23 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.all
+    @posts = Post.paginate(:page => params[:page], :per_page => params[:per_page])
+
+    #@posts = Post.selectIdBody
+
+    #@posts = Post.youBody
+
+    #@posts = Post.postsTagsEpluckIdTitle
+
+
+
+    if params[:postsTags] != nil
+      nombre=Tag.paginate(:page => params[:page],:per_page => params[:per_page]).find_by_name(params[:postsTags]).name
+      @posts= Post.pt(nombre)
+
+    else
+      @posts = Post.paginate(:page => params[:page],:per_page => params[:per_page])
+    end
 
     render json: @posts
   end

@@ -44,19 +44,6 @@ puts 'finished loading adm_groups data'
 
 
 
-# Comments creation
-puts 'started loading Comments data'
-#Comment.reset_pk_sequence
-
-num_records.times do |row|
-  Comment.create(user_id: Faker::Number.between(1, num_records),
-                  post_id: Faker::Number.between(1, num_records),
-                 body: Faker::Community.quotes)
-                 #Comment.create(body: "esto es un comentario del user 1", post_id:1, user_id: 2)
-end
-
-puts 'finished loading Comments data'
-
 # Groups creation
 puts 'started loading Groups data'
 #Group.reset_pk_sequence
@@ -105,7 +92,16 @@ num_records.times do |row|
 end
 
 puts 'finished loading Post data'
+# Services creation
+puts 'started loading Services data'
+#Service.reset_pk_sequence
 
+num_records.times do |row|
+  Service.create(score: Faker::Number.between(1, 5),
+                 post_id: Faker::Number.between(1, num_records))
+end
+
+puts 'finished loading Services data'
 # Records creation
 puts 'started loading Records data'
 #Record.reset_pk_sequence
@@ -129,16 +125,7 @@ end
 
 puts 'finished loading ServiceHasUsers data'
 
-# Services creation
-puts 'started loading Services data'
-#Service.reset_pk_sequence
 
-num_records.times do |row|
-  Service.create(score: Faker::Number.between(1, 5),
-                 post_id: Faker::Number.between(1, num_records))
-end
-
-puts 'finished loading Services data'
 
 # Tags creation
 puts 'started loading Tags data'
@@ -161,3 +148,32 @@ num_records.times do |row|
 end
 
 puts 'finished loading UserHasGroupss data'
+# PostHasTag creation
+puts 'started loading PostHasTag data'
+#PostHasTag.reset_pk_sequence
+
+num_records.times do |row|
+  PostHasTag.create(post_id: Faker::Number.between(1, num_records),
+                    tag_id: Faker::Number.between(1, num_records))
+end
+
+puts 'finished loading PostHasTag data'
+
+
+# Comments creation
+puts 'started loading Comments data'
+#Comment.reset_pk_sequence
+
+num_records.times do |row|
+
+  user = Faker::Number.between(1, num_records)
+  post = Faker::Number.between(1, num_records)
+  body = Faker::Community.quotes
+  Comment.create(user_id: user,
+                  post_id: post,
+                 body: body)
+                 #Comment.create(body: "esto es un comentario del user 1", post_id:1, user_id: 2)
+  #puts user,post,body
+end
+
+puts 'finished loading Comments data'

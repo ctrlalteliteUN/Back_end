@@ -4,16 +4,7 @@ class TagsController < ApplicationController
 
   # GET /tags
   def index
-    #@tags = Tag.all
-    #@tags = Tag.where(post_id: params[:post_id])
-    @post_has_tag = PostHasTag.where(post_id: params[:post_id])
-    #@tags = Tag.where(id: 1)
-    @tags = Array.new
-
-    @post_has_tag.each do |tag|
-      @tags.push(Tag.where(id: tag[:tag_id]))
-    end
-    render json: @tags
+    render json: @post.tags
   end
 
   # GET /tags/1
