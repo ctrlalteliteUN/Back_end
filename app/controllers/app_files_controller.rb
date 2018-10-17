@@ -6,6 +6,9 @@ class AppFilesController < ApplicationController
       if params[:user_id] != nil
         consulta = AppFile.foto_perfil(params[:user_id])
         if !consulta.blank?
+          @operacion = send_data(Base64.decode64(consulta[0][:ruta]) ,
+      :filename => consulta[0][:titulo],
+      :type => "'application/png'")
           #operacion = send_file("files/#{FileType.find(consulta[0][:file_type_id])[:tipo]}/#{consulta[0][:ruta]}",
         #:filename => consulta[0][:ruta],
         #:type => "'application/png'")
