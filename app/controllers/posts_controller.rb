@@ -18,7 +18,7 @@ class PostsController < ApplicationController
       @posts= Post.pt(nombre)
 
     else
-    @posts = Post.paginate(:page => params[:page],:per_page => params[:per_page])
+      @posts = Post.paginate(:page => params[:page],:per_page => params[:per_page])
     end
 
     render json: @posts

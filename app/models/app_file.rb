@@ -3,6 +3,7 @@
 # Table name: app_files
 #
 #  id           :bigint(8)        not null, primary key
+#  description  :string
 #  ruta         :text             default("-"), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -26,11 +27,14 @@
 class AppFile < ApplicationRecord
   #validations
   validates :ruta, presence: true
+  validates :description, presence: true
   
   #associations
   belongs_to :file_type, dependent: :destroy
   belongs_to :user, optional: true
   belongs_to :post, optional: true
+  
+  scope :pp,->(id){where("user_id = ? ", id).where("description LIKE 'foto_perfil'").first}
   
   def crear_archivo_disco
     decode_base64_content = Base64.decode64(self[:ruta]) 
@@ -39,5 +43,9 @@ class AppFile < ApplicationRecord
     end
     self[:ruta] = "#{self[:id]}.png"
     self.save()
+  end
+  
+  def self.foto_perfil(id)
+    pp(id)
   end
 end

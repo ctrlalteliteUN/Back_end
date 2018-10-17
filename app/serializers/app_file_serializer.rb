@@ -3,6 +3,7 @@
 # Table name: app_files
 #
 #  id           :bigint(8)        not null, primary key
+#  description  :string
 #  ruta         :text             default("-"), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -24,7 +25,7 @@
 #
 
 class AppFileSerializer < ActiveModel::Serializer
-  attributes :id,:ruta,:created_at,:updated_at,:file_type_id,:post_id,:user_id
+  attributes :id,:ruta,:created_at,:updated_at,:file_type_id,:post_id,:user_id,:description
   
   belongs_to :file_type, dependent: :destroy
   belongs_to :user, optional: true

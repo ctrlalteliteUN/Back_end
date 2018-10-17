@@ -3,6 +3,7 @@
 # Table name: app_files
 #
 #  id           :bigint(8)        not null, primary key
+#  description  :string
 #  ruta         :text             default("-"), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null

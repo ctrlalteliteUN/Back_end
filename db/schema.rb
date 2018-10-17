@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_215839) do
+ActiveRecord::Schema.define(version: 2018_10_17_015414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2018_10_15_215839) do
     t.bigint "post_id"
     t.text "ruta", default: "-", null: false
     t.bigint "file_type_id", default: 1, null: false
+    t.string "description"
     t.index ["file_type_id"], name: "index_app_files_on_file_type_id"
     t.index ["post_id"], name: "index_app_files_on_post_id"
     t.index ["user_id"], name: "index_app_files_on_user_id"

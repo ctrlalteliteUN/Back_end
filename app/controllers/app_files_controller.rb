@@ -2,9 +2,20 @@ class AppFilesController < ApplicationController
   before_action :set_app_files, only: [:show, :update, :destroy]
   # GET /app_files
   def index
-    @archivos = AppFile.all
-
-    render json: @archivos
+    if params[:ProfilePhoto].present?
+      if params[:user_id] != nil
+        consulta = AppFile.foto_perfil(params[:user_id])
+        operacion = send_file("files/#{FileType.find(consulta[:file_type_id])[:tipo]}/#{consulta[:ruta]}",
+      :filename => consulta[:ruta],
+      :type => "'application/png'")
+      else
+        render json: output = {'error' => 'Especifique la id del usuario'}.to_json
+      end
+    else
+      @archivos = AppFile.all
+  
+      render json: @archivos
+    end
   end
 
   # GET /app_files/1
@@ -52,6 +63,6 @@ class AppFilesController < ApplicationController
     end
     
     def app_file_params
-      params.require(:app_file).permit(:id,:ruta,:file_type_id,:user_id,:post_id)
+      params.require(:app_file).permit(:id,:ruta,:file_type_id,:user_id,:post_id,:description)
     end
 end
