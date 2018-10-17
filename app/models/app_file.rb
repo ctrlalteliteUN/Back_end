@@ -5,6 +5,7 @@
 #  id           :bigint(8)        not null, primary key
 #  description  :string
 #  ruta         :text             default("-"), not null
+#  titulo       :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  file_type_id :bigint(8)        default(1), not null
@@ -36,14 +37,14 @@ class AppFile < ApplicationRecord
   
   scope :pp,->(id){where("user_id = ? ", id).where("description LIKE 'foto_perfil'")}
   
-  def crear_archivo_disco
-    decode_base64_content = Base64.decode64(self[:ruta]) 
-    File.open("files/#{FileType.find(AppFile.find(self[:id])[:file_type_id])[:tipo]}/#{self[:id]}.png", "wb") do |f|
-      f.write(decode_base64_content)
-    end
-    self[:ruta] = "#{self[:id]}.png"
-    self.save()
-  end
+  #def crear_archivo_disco
+  #  decode_base64_content = Base64.decode64(self[:ruta]) 
+  #  File.open("files/#{FileType.find(AppFile.find(self[:id])[:file_type_id])[:tipo]}/#{self[:id]}.png", "wb") do |f|
+  #    f.write(decode_base64_content)
+  #  end
+  #  self[:ruta] = "#{self[:id]}.png"
+  #  self.save()
+  #end
   
   def self.foto_perfil(id)
     pp(id)

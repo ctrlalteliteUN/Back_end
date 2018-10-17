@@ -5,6 +5,7 @@
 #  id           :bigint(8)        not null, primary key
 #  description  :string
 #  ruta         :text             default("-"), not null
+#  titulo       :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  file_type_id :bigint(8)        default(1), not null

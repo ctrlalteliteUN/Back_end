@@ -6,9 +6,9 @@ class AppFilesController < ApplicationController
       if params[:user_id] != nil
         consulta = AppFile.foto_perfil(params[:user_id])
         if !consulta.blank?
-          operacion = send_file("files/#{FileType.find(consulta[0][:file_type_id])[:tipo]}/#{consulta[0][:ruta]}",
-        :filename => consulta[0][:ruta],
-        :type => "'application/png'")
+          #operacion = send_file("files/#{FileType.find(consulta[0][:file_type_id])[:tipo]}/#{consulta[0][:ruta]}",
+        #:filename => consulta[0][:ruta],
+        #:type => "'application/png'")
         else
           render json: output = {'error' => 'El usuario no existe o no tiene foto de perfil almacenada'}.to_json
         end
@@ -24,9 +24,12 @@ class AppFilesController < ApplicationController
 
   # GET /app_files/1
   def show
-    @operacion = send_file("files/#{FileType.find(@app_file[:file_type_id])[:tipo]}/#{@app_file[:ruta]}",
-  :filename => @app_file[:ruta],
-  :type => "'application/png'")
+    #@operacion = send_file("files/#{FileType.find(@app_file[:file_type_id])[:tipo]}/#{@app_file[:ruta]}",
+  #:filename => @app_file[:ruta],
+  #:type => "'application/png'")
+    @operacion = send_data(Base64.decode64(@app_file[:ruta]) ,
+    :filename => @app_file[:titulo],
+    :type => "'application/png'")
   end
 
   # POST /app_files
@@ -34,7 +37,7 @@ class AppFilesController < ApplicationController
     @archivo = AppFile.new(app_file_params)
 
     if @archivo.save
-      @archivo.crear_archivo_disco
+      #@archivo.crear_archivo_disco
       render json: @archivo, status: :created, location: @archivo
     else
       render json: @archivo.errors, status: :unprocessable_entity
@@ -44,7 +47,7 @@ class AppFilesController < ApplicationController
   # PATCH/PUT /app_files/1
   def update
     if @app_file.update(app_file_params)
-      @app_file.crear_archivo_disco
+      #@app_file.crear_archivo_disco
       render json: @app_file, status: :updated, location: @app_file
     else
       render json: @app_file.errors, status: :unprocessable_entity
@@ -54,8 +57,8 @@ class AppFilesController < ApplicationController
   # DELETE /app_files/1
   def destroy
     if @app_file.destroy
-      File.delete("files/#{FileType.find(@app_file[:file_type_id])[:tipo]}/#{@app_file[:ruta]}") if File.exist?("files/#{FileType.find(@app_file[:file_type_id])[:tipo]}/#{@app_file[:ruta]}")
-      render json: @app_file, status: deleted, location: @app_file
+      #File.delete("files/#{FileType.find(@app_file[:file_type_id])[:tipo]}/#{@app_file[:ruta]}") if File.exist?("files/#{FileType.find(@app_file[:file_type_id])[:tipo]}/#{@app_file[:ruta]}")
+      render json: @app_file, status: :deleted, location: @app_file
     else
       render json: @app_file.errors, status: :unprocessable_entity
     end
@@ -67,6 +70,6 @@ class AppFilesController < ApplicationController
     end
     
     def app_file_params
-      params.require(:app_file).permit(:id,:ruta,:file_type_id,:user_id,:post_id,:description)
+      params.require(:app_file).permit(:id,:ruta,:file_type_id,:user_id,:post_id,:description,:titulo)
     end
 end

@@ -17,8 +17,8 @@ class FileTypesController < ApplicationController
   def create
     @type = FileType.new(type_params)
     if @type.save
-      directory_name = "files/#{type_params[:tipo]}"
-      Dir.mkdir(directory_name) unless File.exists?(directory_name)
+      #directory_name = "files/#{type_params[:tipo]}"
+      #Dir.mkdir(directory_name) unless File.exists?(directory_name)
       render json: @type, status: :created, location: @type
     else
       render json: @type.errors, status: :unprocessable_entity
@@ -29,7 +29,7 @@ class FileTypesController < ApplicationController
   def update
     @old_name = @file_type[:tipo]
     if @file_type.update(type_params)
-      File.rename "files/#{@old_name}", "files/#{type_params[:tipo]}"
+      #File.rename "files/#{@old_name}", "files/#{type_params[:tipo]}"
       render json: @file_type
     else
       render json: @file_type.errors, status: :unprocessable_entity
@@ -40,7 +40,7 @@ class FileTypesController < ApplicationController
   def destroy
     @old_name = @file_type[:tipo]
     if @file_type.destroy
-      FileUtils.rm_rf("files/#{@old_name}")
+      #FileUtils.rm_rf("files/#{@old_name}")
       render json: @file_type
     else
       render json: @file_type.errors, status: :unprocessable_entity
