@@ -44,19 +44,6 @@ puts 'finished loading adm_groups data'
 
 
 
-# Comments creation
-puts 'started loading Comments data'
-#Comment.reset_pk_sequence
-
-num_records.times do |row|
-  Comment.create(user_id: Faker::Number.between(1, num_records),
-                  post_id: Faker::Number.between(1, num_records),
-                 body: Faker::Community.quotes)
-                 #Comment.create(body: "esto es un comentario del user 1", post_id:1, user_id: 2)
-end
-
-puts 'finished loading Comments data'
-
 # Groups creation
 puts 'started loading Groups data'
 #Group.reset_pk_sequence
@@ -171,3 +158,22 @@ num_records.times do |row|
 end
 
 puts 'finished loading PostHasTag data'
+
+
+# Comments creation
+puts 'started loading Comments data'
+#Comment.reset_pk_sequence
+
+num_records.times do |row|
+
+  user = Faker::Number.between(1, num_records)
+  post = Faker::Number.between(1, num_records)
+  body = Faker::Community.quotes
+  Comment.create(user_id: user,
+                  post_id: post,
+                 body: body)
+                 #Comment.create(body: "esto es un comentario del user 1", post_id:1, user_id: 2)
+  #puts user,post,body
+end
+
+puts 'finished loading Comments data'
