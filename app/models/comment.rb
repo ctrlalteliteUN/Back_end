@@ -26,7 +26,7 @@ class Comment < ApplicationRecord
   validates :body, presence: true , length:{minimum: 10}
 
   #associations
-  belongs_to :user
+  belongs_to :user, required: false
   belongs_to :post
 
 
