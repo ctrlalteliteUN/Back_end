@@ -14,7 +14,9 @@ gem 'faker', '~> 1.9', '>= 1.9.1'
 gem 'annotate', '~> 2.7'
 gem 'will_paginate', '~> 3.1.0'
 
+gem 'wicked_pdf'
 
+gem 'wkhtmltopdf-binary'
 
 
 # Use Puma as the app server
