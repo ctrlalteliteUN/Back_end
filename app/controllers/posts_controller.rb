@@ -21,10 +21,13 @@ class PostsController < ApplicationController
       @posts = Post.paginate(:page => params[:page],:per_page => params[:per_page])
     end
 
-    respond_to do |format|
-      format.html {render json: @posts}
-      format.pdf {render template: 'posts/reporte', pdf:'Reporte' }
-    end
+    #respond_to do |format|
+    #  format.html {render json: @posts}
+    #  format.pdf  {render template: 'posts/reporte', pdf:'reporte' }
+    #end
+
+    render json: @posts
+    
   end
 
   # GET /posts/1
