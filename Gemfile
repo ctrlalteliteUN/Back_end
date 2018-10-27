@@ -15,8 +15,14 @@ gem 'annotate', '~> 2.7'
 gem 'will_paginate', '~> 3.1.0'
 
 gem 'wicked_pdf'
-
 gem 'wkhtmltopdf-binary'
+#gem 'wkhtmltopdf-binary-edge'
+gem 'wkhtmltopdf'
+
+#-----------------------------------
+gem 'prawn', '~>2.2.0'
+
+
 
 
 # Use Puma as the app server

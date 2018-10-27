@@ -26,8 +26,39 @@ class PostsController < ApplicationController
     #  format.pdf  {render template: 'posts/reporte', pdf:'reporte' }
     #end
 
-    render json: @posts
-    
+
+    #respond_to do |format|
+    #  format.html {render json: @posts}
+    #  format.pdf do
+    #    render pdf: "reporte"   # Excluding ".pdf" extension.
+    #  end
+    #end
+    respond_to do |format|
+      format.html {render json: @posts}
+      format.pdf do
+        pdf = Prawn::Document.new
+        pdf.text "Hellow World!"
+        send_data pdf.render,
+          filename: "export.pdf",
+          type: 'application/pdf',
+          disposition: 'inline'
+      end
+    end
+
+
+    #render json: @posts
+
+  end
+
+  def download_resume
+    require 'erb'
+    binding_copy = binding
+    binding_copy.local_variable_set(:binding ,users: User.all)
+    template = File.open(Rails.root.join('app/views/posts/reporte.html.erb'))
+    string = ERB.new(template).result(binding_copy)
+    pdf = WickedPdf.new.pdf_from_string(string)
+
+
   end
 
   # GET /posts/1
