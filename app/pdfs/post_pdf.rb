@@ -1,7 +1,13 @@
-class PostReport < Prawn::Document
+class PostReport
+  include Prawn::View
+
   def initialize
-    super
-    text "hola bb"
+    content
+  end
+
+  def content
+    text "Hello World!"
+    
   end
 
 end
