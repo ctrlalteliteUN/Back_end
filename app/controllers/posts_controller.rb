@@ -21,25 +21,20 @@ class PostsController < ApplicationController
       @posts = Post.paginate(:page => params[:page],:per_page => params[:per_page])
     end
 
-    #respond_to do |format|
-    #  format.html {render json: @posts}
-    #  format.pdf  {render template: 'posts/reporte', pdf:'reporte' }
-    #end
 
-
-    #respond_to do |format|
-    #  format.html {render json: @posts}
-    #  format.pdf do
-    #    render pdf: "reporte"   # Excluding ".pdf" extension.
-    #  end
-    #end
     respond_to do |format|
+
       format.html {render json: @posts}
       format.pdf do
         pdf = Prawn::Document.new
-        pdf.text "Hellow World!"
+        #pdf.text "Hellow World"
+        @posts.each do |post|
+          pdf.text post.user.name
+          pdf.text post.title + post.body
+          pdf.text "................................"
+        end
         send_data pdf.render,
-          filename: "export.pdf",
+          filename: "report.pdf",
           type: 'application/pdf',
           disposition: 'inline'
       end
