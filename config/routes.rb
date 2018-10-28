@@ -108,6 +108,8 @@ Rails.application.routes.draw do
     resources :records
   end
 
+  resources :tags
+
   #revisar
   resources :services
 
