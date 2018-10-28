@@ -16,6 +16,18 @@ class AppFilesController < ApplicationController
       else
         render json: output = {'error' => 'Especifique la id del usuario'}.to_json
       end
+    elsif params[:FileType].present?
+      if params[:user_id].present?
+        if params[:post_id].present?
+          #id usuario y post
+          render json: AppFile.where(file_type_id:params[:FileType],user_id:params[:user_id],post_id:params[:post_id])
+        else
+          #solo por id usuario
+          render json: AppFile.where("file_type_id= ? AND user_id = ?", params[:FileType], params[:user_id])
+        end
+      else
+        render json: output = {'error' => 'Especifique la id del usuario'}.to_json
+      end
     else
       @archivos = AppFile.all
   

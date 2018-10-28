@@ -21,7 +21,7 @@ gem 'wkhtmltopdf-binary'
 gem 'wkhtmltopdf'
 
 #-----------------------------------
-gem 'prawn', '~>2.2.0'
+gem 'prawn'
 gem 'prawn-table', '~> 0.1.0'
 
 gem "omniauth-google-oauth2", "~> 0.2.1"

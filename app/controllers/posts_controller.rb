@@ -28,11 +28,15 @@ class PostsController < ApplicationController
       format.pdf do
         pdf = Prawn::Document.new
         #pdf.text "Hellow World"
+        #pdf = PostReport.new
+
         @posts.each do |post|
-          pdf.text post.user.name
-          pdf.text post.title + post.body
+          pdf.text "User\:  "+post.user.name
+          pdf.text "Title:  "+post.title
+          pdf.text "Body:  "+post.body
           pdf.text "................................"
         end
+
         send_data pdf.render,
           filename: "report.pdf",
           type: 'application/pdf',
@@ -66,7 +70,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
-      PostMailer.with(user: User.Find(post_params[:user_id]), post: @post).Post.deliver_later
+      PostMailer.with(user: User.find(post_params[:user_id]), post: @post).Post.deliver_later
       render json: @post, status: :created, location: @post
     else
       render json: @post.errors, status: :unprocessable_entity
