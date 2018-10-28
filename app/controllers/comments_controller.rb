@@ -21,6 +21,10 @@ class CommentsController < ApplicationController
     @comment.post = @post
 
     if @comment.save
+      #Notificar al dueño del post
+      usr = User.Find(@post.user_id)
+      CommentMailer.with(user: usr,post: @post,commenter_name: User.Find(comment_params[:user_id]).name,contenido:comment_params[:body]).welcome_email.deliver_later
+      #################################
       render json: @comment, status: :created, location: @comment
     else
       render json: @comment.errors, status: :unprocessable_entity

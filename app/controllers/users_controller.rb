@@ -56,6 +56,7 @@ class UsersController < ApplicationController
 
   # DELETE /posts/1
   def destroy
+    UserMailer.with(user: @user,reason:params[:reason]).closed_account.deliver_later
     @user.destroy
   end
 
