@@ -66,7 +66,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
-      PostMailer.with(user: User.Find(post_params[:user_id]), post: @post).Post.deliver_later
+      PostMailer.with(user: User.find(post_params[:user_id]), post: @post).Post.deliver_later
       render json: @post, status: :created, location: @post
     else
       render json: @post.errors, status: :unprocessable_entity
