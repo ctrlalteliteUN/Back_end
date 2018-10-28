@@ -23,6 +23,8 @@ gem 'wkhtmltopdf'
 gem 'prawn', '~>2.2.0'
 
 
+gem "omniauth-google-oauth2", "~> 0.2.1"
+
 
 
 # Use Puma as the app server
