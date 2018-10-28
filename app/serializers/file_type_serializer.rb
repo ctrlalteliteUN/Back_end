@@ -9,7 +9,11 @@
 #
 
 class FileTypeSerializer < ActiveModel::Serializer
-  attributes :id,:tipo,:created_at,:updated_at
+  attributes :id,:tipo,:created_at,:updated_at,:archivos
   
-  has_many :app_file
+  #has_many :app_file
+  def archivos
+    svr = AppFile.where(file_type_id:object.id).select(:id,:description,:titulo,:created_at,:updated_at,:file_type_id,:post_id,:user_id)
+    #AppFileSerializer.new(svr)
+  end
 end
