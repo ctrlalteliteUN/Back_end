@@ -28,11 +28,15 @@ class PostsController < ApplicationController
       format.pdf do
         pdf = Prawn::Document.new
         #pdf.text "Hellow World"
+        #pdf = PostReport.new
+
         @posts.each do |post|
-          pdf.text post.user.name
-          pdf.text post.title + post.body
+          pdf.text "User\:  "+post.user.name
+          pdf.text "Title:  "+post.title
+          pdf.text "Body:  "+post.body
           pdf.text "................................"
         end
+
         send_data pdf.render,
           filename: "report.pdf",
           type: 'application/pdf',
