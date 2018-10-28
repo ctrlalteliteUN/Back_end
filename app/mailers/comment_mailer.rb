@@ -1,5 +1,4 @@
 class CommentMailer < ApplicationMailer
-  default from: 'notifications@example.com'
  
   def Created
     @user = params[:user]
@@ -9,6 +8,12 @@ class CommentMailer < ApplicationMailer
     if @contenido.lenght > 20
       @contenido = "#{@contenido[0..10]}..."
     end
-    mail(to: @user.email, subject: 'Actividad en tu post\'#{@post.title}\'')
+    mail(to: @user.email,from: "Knowledge Community <knowledgecommunityun@gmail.com>" , subject: 'Actividad en el post\'#{@post.title}\'')
+  end
+  def Deleted
+    @user = params[:user]
+    @post = params[:post]
+    @motivo = params[:reason]
+    mail(to: @user.email,from: "Knowledge Community <knowledgecommunityun@gmail.com>" , subject: 'Comentario eliminado en \'#{@post.title}\'')
   end
 end

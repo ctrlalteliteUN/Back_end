@@ -84,6 +84,7 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1
   def destroy
+    PostMailer.with(user: User.find(@post.user_id),post: @post,reason:params[:reason]).Deleted.deliver_later
     @post.destroy
   end
 

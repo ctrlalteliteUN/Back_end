@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
     if @comment.save
       #Notificar al dueño del post
       usr = User.Find(@post.user_id)
-      CommentMailer.with(user: usr,post: @post,commenter_name: User.Find(comment_params[:user_id]).name,contenido:comment_params[:body]).welcome_email.deliver_later
+      CommentMailer.with(user: usr,post: @post,commenter_name: User.find(comment_params[:user_id]).name,contenido:comment_params[:body]).Created.deliver_later
       #################################
       render json: @comment, status: :created, location: @comment
     else
@@ -42,6 +42,7 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1
   def destroy
+    CommentMailer.with(user: User.find(@comment.user_id),post: Post.find(@comment.post_id),reason:params[:reason]).Deleted.deliver_later
     @comment.destroy
   end
 
