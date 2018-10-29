@@ -1,6 +1,6 @@
 class CommentMailer < ApplicationMailer
  
-  def Created
+  def CommmentCreated
     @user = params[:user]
     @post = params[:post]
     @commenter_name = params[:commenter_name]

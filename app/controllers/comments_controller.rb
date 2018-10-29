@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
     if @comment.save
       #Notificar al dueño del post
       usr = User.find(@post.user_id)
-      CommentMailer.with(user: usr,post: @post,commenter_name: User.find(comment_params[:user_id]).name,contenido:comment_params[:body]).Created.deliver_later
+      CommentMailer.with(user: usr,post: @post,commenter_name: User.find(comment_params[:user_id]).name,contenido:comment_params[:body]).CommmentCreated.deliver_later
       #################################
       render json: @comment, status: :created, location: @comment
     else
