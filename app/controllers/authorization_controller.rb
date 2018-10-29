@@ -26,7 +26,9 @@ include HTTParty
 
     if valid
       render json: output = {'email' => 'la mama del crespo '}.to_json
+    else
+      render json: output = {'email' => 'la puta madre no funciona '}.to_json
     end
   end
-  
+
 end
