@@ -24,7 +24,9 @@ class PostsController < ApplicationController
 
     respond_to do |format|
 
-      format.html {render json: @posts}
+      format.html do
+        render json: @posts
+      end
       format.pdf do
         pdf = Prawn::Document.new
         #pdf.text "Hellow World"

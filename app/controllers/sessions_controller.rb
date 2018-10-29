@@ -14,7 +14,6 @@ class SessionsController < ApplicationController
 
   end
 
-
   def destroy
     @user = User.where(email: params[:email]).first
     @user.authentication_token = nil
