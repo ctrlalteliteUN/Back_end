@@ -59,7 +59,7 @@ class User < ApplicationRecord
 =begin
 =end
   def self.create_user_for_google(email)
-    where(uid: data["email"]).first_or_initialize.tap do |user|
+    where(uid: email).first_or_initialize.tap do |user|
       user.provider="google_oauth2"
       user.uid=email #data["email"]
       user.email=email #data["email"]
@@ -68,7 +68,7 @@ class User < ApplicationRecord
       user.save!
     end
   end
-  
+
   private
 
   def set_score
