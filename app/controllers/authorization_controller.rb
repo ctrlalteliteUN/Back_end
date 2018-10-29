@@ -35,7 +35,6 @@ include HTTParty
         @user = User.create(email:params[:email],name: params[:name] )
       end
       render json: output = {'authentication_token' => @user.authentication_token }.to_json
-
     else
       render json: output = {'email' => 'la puta madre no funciona' , 'error' => pecheo }.to_json
     end
