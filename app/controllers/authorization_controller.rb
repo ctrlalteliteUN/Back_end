@@ -15,7 +15,7 @@ include HTTParty
    render json:@user
 =end
   def get_authorization
-    client_id = "51763937694-8c7g33bu1s7vpa006dg22455utpr6eq8.apps.googleusercontent.com"
+    client_id = "373142330185-hko54qc5fakooerj23p6n1494vj768h4.apps.googleusercontent.com"
     id_token = params["id_token"]
     begin
       valid = Google::Auth::TokenValidator.new(id_token, client_id).validate
