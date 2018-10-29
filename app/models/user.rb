@@ -67,7 +67,8 @@ class User < ApplicationRecord
       user.password_confirmation=user.password
       user.save!
     end
-
+  end
+  
   private
 
   def set_score
