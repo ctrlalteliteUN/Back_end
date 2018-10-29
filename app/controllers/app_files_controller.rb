@@ -29,7 +29,7 @@ class AppFilesController < ApplicationController
           file = AppFile.where("file_type_id= ? AND user_id = ?", params[:FileType], params[:user_id])
           if params[:stream].present?
             ruta = file[0][:ruta]
-            ruta = ruta[(ruta.index(',')+1)..(ruta.lenght-1)]
+            ruta = ruta[(ruta.index(',')+1)..(ruta.length-1)]
             send_data(Base64.decode64(ruta).force_encoding('BINARY'), :filename => file[0][:titulo])
           else
             render json: file
