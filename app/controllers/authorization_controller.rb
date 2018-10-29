@@ -1,7 +1,8 @@
 require 'httparty'
 require 'json'
 class AuthorizationController < ApplicationController                              
-  include HTTParty
+=begin
+include HTTParty
 
  def get_authorization
    url = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=#{params["id_token"]}"
@@ -10,5 +11,5 @@ class AuthorizationController < ApplicationController
    tokens = @user.create_new_auth_token
    @user.save
    render json:@user
- end
+=end
 end
