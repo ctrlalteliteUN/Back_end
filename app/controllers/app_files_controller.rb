@@ -20,10 +20,18 @@ class AppFilesController < ApplicationController
       if params[:user_id].present?
         if params[:post_id].present?
           #id usuario y post
-          render json: AppFile.where(file_type_id:params[:FileType],user_id:params[:user_id],post_id:params[:post_id])
+          if params[:stream].present?
+          else
+            render json: AppFile.where(file_type_id:params[:FileType],user_id:params[:user_id],post_id:params[:post_id])
+          end
         else
           #solo por id usuario
-          render json: AppFile.where("file_type_id= ? AND user_id = ?", params[:FileType], params[:user_id])
+          file = AppFile.where("file_type_id= ? AND user_id = ?", params[:FileType], params[:user_id])
+          if params[:stream].present?
+            send_data(Base64.decode64(file.ruta), :type => "application/pdf" ,:filename => "pdf.pdf" )
+          else
+            render json: file
+          end
         end
       else
         render json: output = {'error' => 'Especifique la id del usuario'}.to_json
