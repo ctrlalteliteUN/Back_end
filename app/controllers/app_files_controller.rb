@@ -20,17 +20,21 @@ class AppFilesController < ApplicationController
       if params[:user_id].present?
         if params[:post_id].present?
           #id usuario y post
+          file = AppFile.where(file_type_id:params[:FileType],user_id:params[:user_id],post_id:params[:post_id])
           if params[:stream].present?
+            ruta = file[params[:stream]][:ruta]
+            ruta = ruta[(ruta.index(',')+1)..(ruta.length-1)]
+            send_data(Base64.decode64(ruta).force_encoding('BINARY'), :filename => file[params[:stream]][:titulo])
           else
-            render json: AppFile.where(file_type_id:params[:FileType],user_id:params[:user_id],post_id:params[:post_id])
+            render json: file
           end
         else
           #solo por id usuario
           file = AppFile.where("file_type_id= ? AND user_id = ?", params[:FileType], params[:user_id])
           if params[:stream].present?
-            ruta = file[0][:ruta]
+            ruta = file[params[:stream]][:ruta]
             ruta = ruta[(ruta.index(',')+1)..(ruta.length-1)]
-            send_data(Base64.decode64(ruta).force_encoding('BINARY'), :filename => file[0][:titulo])
+            send_data(Base64.decode64(ruta).force_encoding('BINARY'), :filename => file[params[:stream]][:titulo])
           else
             render json: file
           end
