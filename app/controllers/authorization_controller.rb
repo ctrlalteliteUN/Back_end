@@ -14,6 +14,7 @@ include HTTParty
    @user.save
    render json:@user
 =end
+
   def get_authorization
     client_id = "373142330185-hko54qc5fakooerj23p6n1494vj768h4.apps.googleusercontent.com"
     id_token = params[:id_token]
@@ -26,8 +27,8 @@ include HTTParty
     end
 
     if valid
-      @user = User.where(email: params[:email])
-      if @user
+      @user = User.where(email: params[:email]).first
+      if @user != nil
         @user.authentication_token = nil
         @user.save
         render json: output = {'authentication_token' => @user.authentication_token }.to_json
