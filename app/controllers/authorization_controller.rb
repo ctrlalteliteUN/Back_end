@@ -31,13 +31,11 @@ include HTTParty
       if @user != nil
         @user.authentication_token = nil
         @user.save
-        render json: output = {'authentication_token' => @user.authentication_token }.to_json
       else
         @user = User.create(email:params[:email],name: params[:name] )
-        render json: output = {'authentication_token' => @user.authentication_token }.to_json
       end
+      render json: output = {'authentication_token' => @user.authentication_token }.to_json
 
-      #render json: output = {'email' => 'la mama del crespo'}.to_json
     else
       render json: output = {'email' => 'la puta madre no funciona' , 'error' => pecheo }.to_json
     end
