@@ -28,5 +28,5 @@ include HTTParty
       render json: output = {'email' => 'la mama del crespo '}.to_json
     end
   end
-
+  
 end
