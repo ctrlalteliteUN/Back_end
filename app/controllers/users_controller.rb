@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     respond_to do |format|
 
       format.html do
-        render json: @user.posts
+        render json: @user
       end
       format.json do
         render json: @user
