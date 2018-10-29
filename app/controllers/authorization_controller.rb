@@ -26,11 +26,15 @@ include HTTParty
     end
 
     if valid
-      url = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=#{params["id_token"]}"
-      response = HTTParty.get(url)
-      @user = User.create_user_for_google(params[:email])
-      tokens = @user.create_new_auth_token
-      @user.save
+      @user = User.where(email: params[:email])
+      if @user
+        @user.authentication_token = nil
+        @user.save
+        render json: output = {'authentication_token' => @user.authentication_token }.to_json
+      else
+        @user = User.create(email:params[:email],name: params[:name] )
+        render json: output = {'authentication_token' => @user.authentication_token }.to_json
+      end
       render json:@user
 
       #render json: output = {'email' => 'la mama del crespo'}.to_json
