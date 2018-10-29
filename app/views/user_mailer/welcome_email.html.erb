@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Bienvenido a Knowledge Community, <%= @user.name %></h1>
+    <p>Se ha registrado exitosamente en la plataforma y su cuenta ya se encuentra activa.</p>
+    <p>Recuerda que para ingresar debes usar el correo: <%= @user.email %>.<br></p>
+    <p>
+      Para poder acceder a la cuenta, ingrese a: <%= @url %>.
+    </p>
+    <p>Gracias por ser parte de nuestra comunidad!</p>
+  </body>
+</html>

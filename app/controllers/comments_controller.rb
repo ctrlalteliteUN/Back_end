@@ -21,6 +21,10 @@ class CommentsController < ApplicationController
     @comment.post = @post
 
     if @comment.save
+      #Notificar al dueño del post
+      usr = User.find(@post.user_id)
+      CommentMailer.with(user: usr,post: @post,commenter_name: User.find(comment_params[:user_id]).name,contenido:comment_params[:body]).CommmentCreated.deliver_later
+      #################################
       render json: @comment, status: :created, location: @comment
     else
       render json: @comment.errors, status: :unprocessable_entity
@@ -38,6 +42,7 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1
   def destroy
+    CommentMailer.with(user: User.find(@comment.user_id),post: Post.find(@comment.post_id),reason:params[:reason]).Deleted.deliver_later
     @comment.destroy
   end
 

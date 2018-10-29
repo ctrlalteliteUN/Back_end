@@ -21,7 +21,45 @@ class PostsController < ApplicationController
       @posts = Post.paginate(:page => params[:page],:per_page => params[:per_page])
     end
 
-    render json: @posts
+
+    respond_to do |format|
+
+      format.html do
+        render json: @posts
+      end
+      format.pdf do
+        pdf = Prawn::Document.new
+        #pdf.text "Hellow World"
+        #pdf = PostReport.new
+
+        @posts.each do |post|
+          pdf.text "User\:  "+post.user.name
+          pdf.text "Title:  "+post.title
+          pdf.text "Body:  "+post.body
+          pdf.text "................................"
+        end
+
+        send_data pdf.render,
+          filename: "report.pdf",
+          type: 'application/pdf',
+          disposition: 'inline'
+      end
+    end
+
+
+    #render json: @posts
+
+  end
+
+  def download_resume
+    require 'erb'
+    binding_copy = binding
+    binding_copy.local_variable_set(:binding ,users: User.all)
+    template = File.open(Rails.root.join('app/views/posts/reporte.html.erb'))
+    string = ERB.new(template).result(binding_copy)
+    pdf = WickedPdf.new.pdf_from_string(string)
+
+
   end
 
   # GET /posts/1
@@ -34,6 +72,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
+      PostMailer.with(user: User.find(post_params[:user_id]), post: @post).Post.deliver_later
       render json: @post, status: :created, location: @post
     else
       render json: @post.errors, status: :unprocessable_entity
@@ -51,6 +90,7 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1
   def destroy
+    PostMailer.with(user: User.find(@post.user_id),post: @post,reason:params[:reason]).Deleted.deliver_later
     @post.destroy
   end
 

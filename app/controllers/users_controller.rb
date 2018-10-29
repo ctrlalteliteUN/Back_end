@@ -30,7 +30,35 @@ class UsersController < ApplicationController
 
   # GET /posts/1
   def show
-    render json: @user
+    respond_to do |format|
+
+      format.html do
+        render json: @user
+      end
+      format.json do
+        render json: @user
+      end
+
+      format.pdf do
+        pdf = Prawn::Document.new
+        #pdf.text "Hellow World"
+        #pdf = PostReport.new
+
+        @user.posts.each do |post|
+          pdf.text "User\:  "+post.user.name
+          pdf.text "Title:  "+post.title
+          pdf.text "Body:  "+post.body
+          pdf.text "................................"
+        end
+
+        send_data pdf.render,
+          filename: "report.pdf",
+          type: 'application/pdf',
+          disposition: 'inline'
+      end
+    end
+
+    #render json: @user
   end
 
   # POST /posts
@@ -38,6 +66,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      UserMailer.with(user: @user).welcome_email.deliver_later
       render json: @user, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -55,6 +84,7 @@ class UsersController < ApplicationController
 
   # DELETE /posts/1
   def destroy
+    UserMailer.with(user: @user,reason:params[:reason]).closed_account.deliver_later
     @user.destroy
   end
 

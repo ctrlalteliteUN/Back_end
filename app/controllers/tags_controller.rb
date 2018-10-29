@@ -16,7 +16,7 @@ class TagsController < ApplicationController
   def create
     @tag = Tag.new(tag_params)
     #association between post
-
+    
     if @tag.save
       @post_has_tag = PostHasTag.new(tag_id: @tag.id, post_id: params[:post_id])
       if @post_has_tag.save

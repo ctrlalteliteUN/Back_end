@@ -28,11 +28,13 @@ class User < ApplicationRecord
 
   acts_as_token_authenticatable
 
-
+  #devise :omniauthable, omniauth_providers: [:google_oauth2]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  #devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2]
 
   #set score to N on create
   before_create :set_score
@@ -54,6 +56,18 @@ class User < ApplicationRecord
   has_many :user_has_groups
   has_many :groups, through: :user_has_groups
 
+=begin
+  def self.create_user_for_google(email)
+    where(uid: email).first_or_initialize.tap do |user|
+      user.provider="google_oauth2"
+      user.uid=email #data["email"]
+      user.email=email #data["email"]
+      user.password=Devise.friendly_token[0,20]
+      user.password_confirmation=user.password
+      user.save!
+    end
+  end
+=end
 
   private
 
@@ -72,6 +86,7 @@ class User < ApplicationRecord
   #muestra solamente el name y el email de los usuarios
 
   scope :selectNameEmail, -> {select("name, email")}
+
 
 
 

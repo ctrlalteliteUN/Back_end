@@ -9,7 +9,7 @@ Devise.setup do |config|
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '5b73b617bcc2224ef03ef951773ae1c819077f27873368faa94fdcf86036a179d58c51704556902cd5e739fb5cd1c5368ce12d6391998621470814165c556794'
-  
+
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -256,8 +256,13 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
+  #config.omniauth :google_oauth2, '51763937694-8c7g33bu1s7vpa006dg22455utpr6eq8.apps.googleusercontent.com', 'qkab51K1mSyfrYraMzWTpYQn', {}
+ # OmniAuth.config.logger = Rails.logger
+
+  #Rails.application.config.middleware.use OmniAuth::Builder do
+    #provider :google_oauth2, '51763937694-8c7g33bu1s7vpa006dg22455utpr6eq8.apps.googleusercontent.com', 'qkab51K1mSyfrYraMzWTpYQn', {client_options: {ssl: {ca_file: Rails.root.join("cacert.pem").to_s}}}
+  #end
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

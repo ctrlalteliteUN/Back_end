@@ -8,12 +8,25 @@ gem 'rails', '~> 5.2.1'
 gem 'active_model_serializers', '~> 0.10.0'
 
 gem 'devise'
+gem 'mail'
+gem 'httparty'
 #devise gem for user authentication
 gem 'simple_token_authentication', '~> 1.0' # see semver.org
 gem 'faker', '~> 1.9', '>= 1.9.1'
 gem 'annotate', '~> 2.7'
 gem 'will_paginate', '~> 3.1.0'
 
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+#gem 'wkhtmltopdf-binary-edge'
+gem 'wkhtmltopdf'
+
+#-----------------------------------
+gem 'prawn'
+gem 'prawn-table', '~> 0.1.0'
+
+gem 'google-auth-token_validator'
+gem "omniauth-google-oauth2", "~> 0.2.1"
 
 
 

@@ -108,12 +108,15 @@ Rails.application.routes.draw do
     resources :records
   end
 
+  resources :tags
+
   #revisar
   resources :services
 
   resources :posts do
     resources :comments #, only: [:create,:destroy,:update, :show]
     resources :tags
+    get :download_resume
   end
 
   resources :comments
@@ -122,7 +125,13 @@ Rails.application.routes.draw do
     resources :posts
   end
 
-  devise_for :users, defaults: { format: :json }
+  post 'auth/request', to:'authorization#get_authorization'
+
+  #devise_for :users, defaults: { format: :json }
+  #devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+
+  #mount_devise_token_auth_for 'User', at: 'auth', skip: [:omniauth_callbacks]
+  #devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, defaults: { format: :json }
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
