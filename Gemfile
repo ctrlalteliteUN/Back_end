@@ -9,6 +9,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 
 gem 'devise'
 gem 'mail'
+gem 'httparty'
 #devise gem for user authentication
 gem 'simple_token_authentication', '~> 1.0' # see semver.org
 gem 'faker', '~> 1.9', '>= 1.9.1'
