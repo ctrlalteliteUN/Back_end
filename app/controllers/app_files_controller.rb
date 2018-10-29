@@ -28,7 +28,7 @@ class AppFilesController < ApplicationController
           #solo por id usuario
           file = AppFile.where("file_type_id= ? AND user_id = ?", params[:FileType], params[:user_id])
           if params[:stream].present?
-            send_data(Base64.decode64(file[0][:ruta]).force_encoding('BINARY'), :type => "application/pdf" ,:filename => file[0][:titulo], :disposition => 'inline', :stream => 'true')
+            send_data(Base64.decode64(file[0][:ruta]).force_encoding('BINARY'), :filename => file[0][:titulo])
           else
             render json: file
           end
