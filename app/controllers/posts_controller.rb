@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.paginate(:page => params[:page], :per_page => params[:per_page])
+    #@posts = Post.paginate(:page => params[:page], :per_page => params[:per_page])
 
     #@posts = Post.selectIdBody
 
@@ -13,11 +13,15 @@ class PostsController < ApplicationController
 
     #@posts = Post.postsTagsEpluckIdTitle
 
+    if params[:body] != nil
+      @posts = Post.bodys(params[:body]).paginate(:page => params[:page],:per_page => params[:per_page])
 
+    elsif params[:title]!= nil
+        @posts = Post.titles(params[:title]).paginate(:page => params[:page],:per_page => params[:per_page])
 
-    if params[:postsTags] != nil
+    elsif params[:postsTags] != nil
       nombre=Tag.paginate(:page => params[:page],:per_page => params[:per_page]).find_by_name(params[:postsTags]).name
-      @posts= Post.pt(nombre)
+      @posts=Post.pt(nombre)
 
     else
       @posts = Post.paginate(:page => params[:page],:per_page => params[:per_page])
