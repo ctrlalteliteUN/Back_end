@@ -35,7 +35,7 @@ class UsersController < ApplicationController
       format.html do
         if params[:statistics] != nil
           if params[:statistics] == "1"
-            render json: @user.last_week_posts
+            render json: User.last_week_posts(@user[:id])
           end
         else
           render json: @user
