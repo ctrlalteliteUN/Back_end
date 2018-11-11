@@ -19,8 +19,7 @@ class UsersController < ApplicationController
 
         @users = User.selectNameEmail.paginate(:page => params[:page],:per_page => params[:per_page]).as_json(except: [:authentication_token])
         #@users = User.usersServiceFutbolpluckIdEmail.paginate(:page => params[:page],:per_page => params[:per_page])
-        #@users = User.usersServiceFutbolpluckIdEmail.paginate(:page => params[:page],:per_page => params[:per_page])
-
+        #@users = User.usersServiceFutbolpluckIdEmail.paginate(:page => params[:page],:per_page => params[:per_page])   
       else
         @users = User.paginate(:page => params[:page],:per_page => params[:per_page])
       end
@@ -34,7 +33,13 @@ class UsersController < ApplicationController
     respond_to do |format|
 
       format.html do
-        render json: @user
+        if params[:statistics] != nil
+          if params[:statistics] == "1"
+            render json: @user.last_week_posts
+          end
+        else
+          render json: @user
+        end
       end
       
 

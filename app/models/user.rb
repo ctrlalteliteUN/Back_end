@@ -87,6 +87,8 @@ class User < ApplicationRecord
 
   scope :selectNameEmail, -> {select("name, email")}
 
+  #post del usuario
+  scope :last_week_posts, ->(id){joins(:posts).where("users.id = ?",id).where('created_at >= ?', 1.week.ago)}
 
 
 
