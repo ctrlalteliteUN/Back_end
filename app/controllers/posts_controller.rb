@@ -1,3 +1,5 @@
+require "#{Rails.root}/app/pdfs/post_pdf.rb"
+
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
 
@@ -27,23 +29,17 @@ class PostsController < ApplicationController
       format.html do
         render json: @posts
       end
+
       format.pdf do
-        pdf = Prawn::Document.new
-        #pdf.text "Hellow World"
-        #pdf = PostReport.new
-
-        @posts.each do |post|
-          pdf.text "User\:  "+post.user.name
-          pdf.text "Title:  "+post.title
-          pdf.text "Body:  "+post.body
-          pdf.text "................................"
-        end
-
+        pdf = PostReport.new
         send_data pdf.render,
           filename: "report.pdf",
           type: 'application/pdf',
           disposition: 'inline'
       end
+
+
+
     end
 
 

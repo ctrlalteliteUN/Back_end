@@ -1,3 +1,4 @@
+require "#{Rails.root}/app/pdfs/user_pdf.rb"
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
 
@@ -35,22 +36,10 @@ class UsersController < ApplicationController
       format.html do
         render json: @user
       end
-      format.json do
-        render json: @user
-      end
+      
 
       format.pdf do
-        pdf = Prawn::Document.new
-        #pdf.text "Hellow World"
-        #pdf = PostReport.new
-
-        @user.posts.each do |post|
-          pdf.text "User\:  "+post.user.name
-          pdf.text "Title:  "+post.title
-          pdf.text "Body:  "+post.body
-          pdf.text "................................"
-        end
-
+        pdf = PostReport.new(params[:id])
         send_data pdf.render,
           filename: "report.pdf",
           type: 'application/pdf',
