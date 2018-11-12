@@ -1,4 +1,4 @@
-# SUMMARY_3
+# SUMMARY_4
 
 Cuarta iteración del BackEnd del equipo Ctrl Alt Elite.
 
@@ -10,4 +10,6 @@ Para esta iteración se desarrollaron las siguientes características:
 
 Para la próxima iteración se planean las siguientes caracteristicas:
 *Crear mas flujos completos
+*Hacer autenticacion con facebook
+*Hacer mas reportes
 
