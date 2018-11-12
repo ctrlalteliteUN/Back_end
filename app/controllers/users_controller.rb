@@ -37,6 +37,8 @@ class UsersController < ApplicationController
             render json: User.last_week_posts(@user[:id]).to_json
           elsif params[:statistics] == "2"
             render json: User.last_week_comments(@user[:id]).to_json
+          elsif params[:statistics] == "3"
+            render json: User.most_used_Tags(@user[:id]).to_json
           end
         else
           render json: @user
