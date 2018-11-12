@@ -4,6 +4,8 @@
 #
 #  id         :bigint(8)        not null, primary key
 #  body       :text
+#  lat        :decimal(, )
+#  lng        :decimal(, )
 #  solicitud  :integer
 #  title      :string
 #  created_at :datetime         not null
