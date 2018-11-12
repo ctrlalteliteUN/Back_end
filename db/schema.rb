@@ -147,9 +147,6 @@ ActiveRecord::Schema.define(version: 2018_11_11_235609) do
     t.string "authentication_token", limit: 30
     t.string "password"
     t.string "password_confirmation"
-    t.string "provider"
-    t.string "uid"
-    t.text "image"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

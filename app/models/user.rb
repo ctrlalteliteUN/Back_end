@@ -6,17 +6,14 @@
 #  authentication_token   :string(30)
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  image                  :text
 #  name                   :string
 #  password               :string
 #  password_confirmation  :string
 #  perimission_level      :integer
-#  provider               :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  score                  :float
-#  uid                    :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -91,7 +88,7 @@ class User < ApplicationRecord
   scope :selectNameEmail, -> {select("name, email")}
 
   #post del usuario
-  scope :last_week_posts, ->(id){joins(:posts).where("users.id = ?",id).where('created_at >= ?', 1.week.ago)}
+  scope :last_week_posts, ->(id){joins(:posts).where("users.id = ?",id).where('posts.created_at >= ?', 1.year.ago).group("posts.created_at").count}
 
 
 

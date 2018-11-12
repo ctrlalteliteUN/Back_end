@@ -26,3 +26,4 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 files/Imagen/3.png
+squid-1.4.1.gem
