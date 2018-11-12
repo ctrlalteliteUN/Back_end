@@ -25,7 +25,7 @@
 #
 
 class PostSerializer < ActiveModel::Serializer
-  attributes :id,:body,:solicitud,:title,:created_at,:updated_at,:user_id
+  attributes :id,:body,:solicitud,:title,:created_at,:updated_at,:user_id,:lat,:lng
   
   belongs_to :user
   belongs_to :group, required: false
