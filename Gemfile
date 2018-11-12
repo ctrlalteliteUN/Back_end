@@ -24,6 +24,7 @@ gem 'wkhtmltopdf'
 #-----------------------------------
 gem 'prawn'
 gem 'prawn-table', '~> 0.1.0'
+gem 'squid', '~> 1.2'
 
 gem 'google-auth-token_validator'
 gem "omniauth-google-oauth2", "~> 0.2.1"

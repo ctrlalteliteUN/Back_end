@@ -1,9 +1,11 @@
+require "#{Rails.root}/app/pdfs/post_pdf.rb"
+
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
 
   # GET /posts
   def index
-    @posts = Post.paginate(:page => params[:page], :per_page => params[:per_page])
+    #@posts = Post.paginate(:page => params[:page], :per_page => params[:per_page])
 
     #@posts = Post.selectIdBody
 
@@ -11,11 +13,15 @@ class PostsController < ApplicationController
 
     #@posts = Post.postsTagsEpluckIdTitle
 
+    if params[:body] != nil
+      @posts = Post.bodys(params[:body]).paginate(:page => params[:page],:per_page => params[:per_page])
 
+    elsif params[:title]!= nil
+        @posts = Post.titles(params[:title]).paginate(:page => params[:page],:per_page => params[:per_page])
 
-    if params[:postsTags] != nil
+    elsif params[:postsTags] != nil
       nombre=Tag.paginate(:page => params[:page],:per_page => params[:per_page]).find_by_name(params[:postsTags]).name
-      @posts= Post.pt(nombre)
+      @posts=Post.pt(nombre)
 
     else
       @posts = Post.paginate(:page => params[:page],:per_page => params[:per_page])
@@ -27,23 +33,17 @@ class PostsController < ApplicationController
       format.html do
         render json: @posts
       end
+
       format.pdf do
-        pdf = Prawn::Document.new
-        #pdf.text "Hellow World"
-        #pdf = PostReport.new
-
-        @posts.each do |post|
-          pdf.text "User\:  "+post.user.name
-          pdf.text "Title:  "+post.title
-          pdf.text "Body:  "+post.body
-          pdf.text "................................"
-        end
-
+        pdf = PostReport.new
         send_data pdf.render,
           filename: "report.pdf",
           type: 'application/pdf',
           disposition: 'inline'
       end
+
+
+
     end
 
 
@@ -102,6 +102,6 @@ class PostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.require(:post).permit(:user_id, :title, :body, :solicitud)
+      params.require(:post).permit(:user_id, :title, :body, :solicitud, :lat, :lng)
     end
 end

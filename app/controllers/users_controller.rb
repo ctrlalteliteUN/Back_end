@@ -1,6 +1,6 @@
+require "#{Rails.root}/app/pdfs/user_pdf.rb"
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-
   # GET /posts
   def index
 
@@ -19,7 +19,6 @@ class UsersController < ApplicationController
         @users = User.selectNameEmail.paginate(:page => params[:page],:per_page => params[:per_page]).as_json(except: [:authentication_token])
         #@users = User.usersServiceFutbolpluckIdEmail.paginate(:page => params[:page],:per_page => params[:per_page])
         #@users = User.usersServiceFutbolpluckIdEmail.paginate(:page => params[:page],:per_page => params[:per_page])
-
       else
         @users = User.paginate(:page => params[:page],:per_page => params[:per_page])
       end
@@ -33,24 +32,25 @@ class UsersController < ApplicationController
     respond_to do |format|
 
       format.html do
-        render json: @user
+        if params[:statistics] != nil
+          if params[:statistics] == "1"
+            #render json: output = {'x' => "#{(User.last_week_posts(@user[:id])).keys}",'y' => "#{(User.last_week_posts(@user[:id])).values.join(",")}"}.to_json
+            render json: User.last_week_posts(@user[:id])
+          elsif params[:statistics] == "2"
+            render json: User.last_week_comments(@user[:id])
+            #render json: output = {'x' => "#{(User.last_week_comments(@user[:id])).keys}",'y' => "#{(User.last_week_comments(@user[:id])).values.join(",")}"}.to_json
+         # elsif params[:statistics] == "3"
+          #  render json: User.most_used_Tags(@user[:id]).to_json
+          end
+
+        else
+          render json: @user
+        end
       end
-      format.json do
-        render json: @user
-      end
+
 
       format.pdf do
-        pdf = Prawn::Document.new
-        #pdf.text "Hellow World"
-        #pdf = PostReport.new
-
-        @user.posts.each do |post|
-          pdf.text "User\:  "+post.user.name
-          pdf.text "Title:  "+post.title
-          pdf.text "Body:  "+post.body
-          pdf.text "................................"
-        end
-
+        pdf = UserReport.new(params[:id])
         send_data pdf.render,
           filename: "report.pdf",
           type: 'application/pdf',

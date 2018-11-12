@@ -4,6 +4,8 @@
 #
 #  id         :bigint(8)        not null, primary key
 #  body       :text
+#  lat        :decimal(, )
+#  lng        :decimal(, )
 #  solicitud  :integer
 #  title      :string
 #  created_at :datetime         not null
@@ -38,11 +40,11 @@ class Post < ApplicationRecord
 
 #muestra solo el id y body de todos los post
   scope :selectIdBody, -> {select("id, body")}
-  #grupos que tienen la palabra body en el body
-  scope :youBody, -> {where("body LIKE ?", "%you%")}
+  #post que tienen la palabra body en el body
+  scope :bodys, -> (name){where("body LIKE?", "%#{name}%")}
+  scope :titles, -> (name){where("title LIKE?", "%#{name}%")}
   #Muestra el id y el title de los post que tienen la etiqueta samsung
   scope :postsTagsEpluckIdTitle,->(name){joins(:tags).where("name LIKE ?", name )}
-
 
 
 

@@ -41,6 +41,7 @@ class Group < ApplicationRecord
   scope :groupsUserbyname, ->(name){joins(:users).where("users.name LIKE ?",name)}
 
 
+
 def self.gu(id)
 
 
