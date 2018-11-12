@@ -36,7 +36,7 @@ class UsersController < ApplicationController
           if params[:statistics] == "1"
             render json: output = {'datos' => "#{(User.last_week_posts(@user[:id])).keys.join(",")}|#{(User.last_week_posts(@user[:id])).values.join(",")}"}.to_json
           elsif params[:statistics] == "1"
-            render json: output = {'datos' => "#{(User.last_week_comments(@user[:id])).keys}|#{(User.last_week_comments(@user[:id])).values}"}.to_json
+            render json: output = {'datos' => "#{(User.last_week_comments(@user[:id])).keys.join(",")}|#{(User.last_week_comments(@user[:id])).values.join(",")}"}.to_json
          # elsif params[:statistics] == "3"
           #  render json: User.most_used_Tags(@user[:id]).to_json
           end
