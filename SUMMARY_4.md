@@ -12,4 +12,3 @@ Para la próxima iteración se planean las siguientes caracteristicas:
 *Crear mas flujos completos
 *Hacer autenticacion con facebook
 *Hacer mas reportes
-
