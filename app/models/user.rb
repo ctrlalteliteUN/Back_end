@@ -88,7 +88,8 @@ class User < ApplicationRecord
   scope :selectNameEmail, -> {select("name, email")}
 
   #post del usuario
-  scope :last_week_posts, ->(id){joins(:posts).where("users.id = ?",id).where('posts.created_at >= ?', 1.year.ago).group("posts.created_at").count}
+  scope :last_week_posts, ->(id){joins(:posts).where("users.id = ?",id).where('posts.created_at >= ?', 1.week.ago).select("to_char(posts.created_at,'DD/MM/YYYY')").group("to_char(posts.created_at,'DD/MM/YYYY')").count}
+  scope :last_week_comments, ->(id){joins(:comments).where("users.id = ?",id).where('comments.created_at >= ?', 1.week.ago).select("to_char(comments.created_at,'DD/MM/YYYY')").group("to_char(comments.created_at,'DD/MM/YYYY')").count}
 
 
 

@@ -1,7 +1,6 @@
 require "#{Rails.root}/app/pdfs/user_pdf.rb"
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-
   # GET /posts
   def index
 
@@ -35,7 +34,9 @@ class UsersController < ApplicationController
       format.html do
         if params[:statistics] != nil
           if params[:statistics] == "1"
-            render json: User.last_week_posts(@user[:id])
+            render json: User.last_week_posts(@user[:id]).to_json
+          elsif params[:statistics] == "2"
+            render json: User.last_week_comments(@user[:id]).to_json
           end
         else
           render json: @user
