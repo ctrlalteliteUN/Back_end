@@ -34,9 +34,11 @@ class UsersController < ApplicationController
       format.html do
         if params[:statistics] != nil
           if params[:statistics] == "1"
-            render json: output = {'x' => "#{(User.last_week_posts(@user[:id])).keys}",'y' => "#{(User.last_week_posts(@user[:id])).values.join(",")}"}.to_json
+            #render json: output = {'x' => "#{(User.last_week_posts(@user[:id])).keys}",'y' => "#{(User.last_week_posts(@user[:id])).values.join(",")}"}.to_json
+            render json: User.last_week_posts(@user[:id])
           elsif params[:statistics] == "2"
-            render json: output = {'x' => "#{(User.last_week_comments(@user[:id])).keys}",'y' => "#{(User.last_week_comments(@user[:id])).values.join(",")}"}.to_json
+            render json: User.last_week_comments(@user[:id])
+            #render json: output = {'x' => "#{(User.last_week_comments(@user[:id])).keys}",'y' => "#{(User.last_week_comments(@user[:id])).values.join(",")}"}.to_json
          # elsif params[:statistics] == "3"
           #  render json: User.most_used_Tags(@user[:id]).to_json
           end
