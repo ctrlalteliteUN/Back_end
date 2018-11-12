@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
         @users = User.selectNameEmail.paginate(:page => params[:page],:per_page => params[:per_page]).as_json(except: [:authentication_token])
         #@users = User.usersServiceFutbolpluckIdEmail.paginate(:page => params[:page],:per_page => params[:per_page])
-        #@users = User.usersServiceFutbolpluckIdEmail.paginate(:page => params[:page],:per_page => params[:per_page])   
+        #@users = User.usersServiceFutbolpluckIdEmail.paginate(:page => params[:page],:per_page => params[:per_page])
       else
         @users = User.paginate(:page => params[:page],:per_page => params[:per_page])
       end
@@ -40,14 +40,15 @@ class UsersController < ApplicationController
          # elsif params[:statistics] == "3"
           #  render json: User.most_used_Tags(@user[:id]).to_json
           end
+
         else
           render json: @user
         end
       end
-      
+
 
       format.pdf do
-        pdf = PostReport.new(params[:id])
+        pdf = UserReport.new(params[:id])
         send_data pdf.render,
           filename: "report.pdf",
           type: 'application/pdf',

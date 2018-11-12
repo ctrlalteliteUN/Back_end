@@ -1,5 +1,5 @@
 require 'squid'
-class PostReport
+class UserReport
   include Prawn::View
 
   def initialize(id)
@@ -32,12 +32,24 @@ class PostReport
 
     #image "#{Rails.root}/app/pdfs/images/image.jpg", :at => [50,450], :width => 450
     #image "#{Rails.root}/app/pdfs/images/image.jpg",  :width => 450
+    @posts = User.last_week_posts(@user[:id])
+    @comments = User.last_week_comments(@user[:id])
 
     data = {}
-    for x in 1..10 do
-      data[x] = 10-x
+    @posts.keys.each do |key|
+      data[key] = @posts[key]
     end
-    chart views: data
+
+    data2 = {}
+    @comments.keys.each do |key|
+      data2[key] = @comments[key]
+    end
+
+
+
+
+
+    chart post_last_week: data,comment_last_week: data2
 
   end
 end

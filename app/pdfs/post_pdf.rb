@@ -22,10 +22,11 @@ class PostReport
   end
 
   def post_all
-    [["User name","Title","Post"]] +
+    [["User name","Title","Created at","Post"]] +
     @posts.map do |post|
-      [post.user.name,post.title,post.body]
+      [post.user.name,post.title,post.created_at.to_s[0..9],post.body]
     end
+
   end
 
   def graph
@@ -36,16 +37,23 @@ class PostReport
     #image "#{Rails.root}/app/pdfs/images/image.jpg", :at => [50,450], :width => 450
     #image "#{Rails.root}/app/pdfs/images/image.jpg",  :width => 450
 
+
     data = {}
-    data2 = {}
-    for x in 1..10 do
-      data[x] = x
+    @posts.each do |post|
+      time = post.created_at.to_s[0..9]
+      if data.keys.include? time
+        data[time] = data[time] + 1
+      else
+        data[time] = 1
+      end
+
     end
 
-    for x in 1..10 do
-      data2[x] = 10- x
-    end
 
-    chart views: data, views2: data2
+    chart views: data
+
+
+
+
   end
 end
