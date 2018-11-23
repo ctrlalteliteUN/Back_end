@@ -19,8 +19,9 @@ class GroupsController < ApplicationController
       id=User.paginate(:page => params[:page],:per_page => params[:per_page]).find_by_id(params[:groupsUserbyid]).id
       @groups= Group.gu(id)
 
+    elsif params[:name] != nil
 
-
+       @groups = Group.nameGroup(params[:name]).paginate(:page => params[:page],:per_page => params[:per_page])
     else
 
       @groups =Group.paginate(:page => params[:page],:per_page => params[:per_page])
