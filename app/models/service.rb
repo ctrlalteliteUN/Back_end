@@ -4,6 +4,7 @@
 #
 #  id         :bigint(8)        not null, primary key
 #  score      :integer
+#  state      :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  post_id    :bigint(8)
