@@ -20,7 +20,12 @@ class ServicesController < ApplicationController
     @service = Service.new(service_params)
 
     if @service.save
-      render json: @service, status: :created, location: @service
+      service_has_user = ServiceHasUser.new(@service[:id],params[:user_service_id])
+      if service_has_user.save
+        render json: @service, status: :created, location: @service
+      else
+        render json: @service.errors, status: :unprocessable_entity
+      end
     else
       render json: @service.errors, status: :unprocessable_entity
     end
