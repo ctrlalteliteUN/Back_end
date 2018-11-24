@@ -9,7 +9,7 @@
 #
 
 class GroupSerializer < ActiveModel::Serializer
-  attributes :id,:name,:state,:created_at,:updated_at
+  attributes :id,:name,:created_at,:updated_at
   
   has_many :posts
 
