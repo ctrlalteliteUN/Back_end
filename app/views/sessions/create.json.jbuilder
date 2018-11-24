@@ -3,7 +3,7 @@ json.data do
     json.call(
       @user,
       :email,
-      :authentication_token
+      :authentication_token,
       :id
     )
   end
