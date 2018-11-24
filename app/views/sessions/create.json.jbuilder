@@ -4,6 +4,7 @@ json.data do
       @user,
       :email,
       :authentication_token
+      :id
     )
   end
 end
