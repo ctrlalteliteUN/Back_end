@@ -5,49 +5,55 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    #@posts = Post.paginate(:page => params[:page], :per_page => params[:per_page])
+    if $granted
+      $granted = false
+      #@posts = Post.paginate(:page => params[:page], :per_page => params[:per_page])
 
-    #@posts = Post.selectIdBody
+      #@posts = Post.selectIdBody
 
-    #@posts = Post.youBody
+      #@posts = Post.youBody
 
-    #@posts = Post.postsTagsEpluckIdTitle
+      #@posts = Post.postsTagsEpluckIdTitle
 
-    if params[:body] != nil
-      @posts = Post.bodys(params[:body]).paginate(:page => params[:page],:per_page => params[:per_page])
+      if params[:body] != nil
+        @posts = Post.bodys(params[:body]).paginate(:page => params[:page],:per_page => params[:per_page])
 
-    elsif params[:title]!= nil
+      elsif params[:title]!= nil
         @posts = Post.titles(params[:title]).paginate(:page => params[:page],:per_page => params[:per_page])
 
-    elsif params[:postsTags] != nil
-      nombre=Tag.paginate(:page => params[:page],:per_page => params[:per_page]).find_by_name(params[:postsTags]).name
-      @posts=Post.pt(nombre)
+      elsif params[:postsTags] != nil
+        nombre=Tag.paginate(:page => params[:page],:per_page => params[:per_page]).find_by_name(params[:postsTags]).name
+        @posts=Post.pt(nombre)
 
+      else
+        @posts = Post.paginate(:page => params[:page],:per_page => params[:per_page])
+      end
+
+
+      respond_to do |format|
+
+        format.html do
+          render json: @posts
+        end
+
+        format.pdf do
+          pdf = PostReport.new
+          send_data pdf.render,
+                    filename: "report.pdf",
+                    type: 'application/pdf',
+                    disposition: 'inline'
+        end
+
+
+
+      end
+
+
+      #render json: @posts
     else
-      @posts = Post.paginate(:page => params[:page],:per_page => params[:per_page])
+      render json: $granted
     end
 
-
-    respond_to do |format|
-
-      format.html do
-        render json: @posts
-      end
-
-      format.pdf do
-        pdf = PostReport.new
-        send_data pdf.render,
-          filename: "report.pdf",
-          type: 'application/pdf',
-          disposition: 'inline'
-      end
-
-
-
-    end
-
-
-    #render json: @posts
 
   end
 
