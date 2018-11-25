@@ -1,7 +1,8 @@
 class UserMailer < ApplicationMailer
   
-  def welcome_email
-    @user = params[:user]
+  def welcome_email (user)
+
+    @user = user
     @url  = 'https://knowledge-community-front-end.herokuapp.com'
     mail(to: @user.email,from: "Knowledge Community <knowledgecommunityun@gmail.com>" ,subject: 'Bienvenido a Knowledge Community!')
   end

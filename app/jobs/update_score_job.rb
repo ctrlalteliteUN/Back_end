@@ -1,7 +1,7 @@
 class UpdateScoreJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
-    # Do something later
+  def perform(user)
+    UserMailer.welcome_email(user).deliver_later
   end
 end
