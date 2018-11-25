@@ -3,39 +3,67 @@ class RecordsController < ApplicationController
 
   # GET /records
   def index
-    @records = Record.all
-
-    render json: @records
+    if $granted
+      $granted = false
+      @records = Record.all
+      render json: @records
+    else
+      render json: $granted
+    end
   end
 
   # GET /records/1
   def show
-    render json: @record
+    if $granted
+      $granted = false
+      render json: @record
+    else
+      render json: $granted
+    end
   end
 
   # POST /records
   def create
-    @record = Record.new(record_params)
+    if $granted
+      $granted = false
+      #------------------------------------------------------------------------------------
+      @record = Record.new(record_params)
 
-    if @record.save
-      render json: @record, status: :created, location: @record
+      if @record.save
+        render json: @record, status: :created, location: @record
+      else
+        render json: @record.errors, status: :unprocessable_entity
+      end
+      #---------------------------------------------------------------------------------
     else
-      render json: @record.errors, status: :unprocessable_entity
+      render json: $granted
     end
   end
 
   # PATCH/PUT /records/1
   def update
-    if @record.update(record_params)
-      render json: @record
+    if $granted
+      $granted = false
+      #----------------------------------------------------------------------
+      if @record.update(record_params)
+        render json: @record
+      else
+        render json: @record.errors, status: :unprocessable_entity
+      end
+      #----------------------------------------------------------------------
     else
-      render json: @record.errors, status: :unprocessable_entity
+      render json: $granted
     end
   end
 
   # DELETE /records/1
   def destroy
-    @record.destroy
+    if $granted
+      $granted = false
+      @record.destroy
+    else
+      render json: $granted
+    end
   end
 
   private
