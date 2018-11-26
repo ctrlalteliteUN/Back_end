@@ -106,6 +106,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :records
+    post :token_verify
   end
 
   resources :tags

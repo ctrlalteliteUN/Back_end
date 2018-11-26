@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   # GET /posts
   def index
 
-
       if params[:name] != nil
 
       @users = User.users1(params[:name]).paginate(:page => params[:page],:per_page => params[:per_page])
@@ -66,8 +65,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      UserMailer.with(user: @user).welcome_email.deliver_later
-      render json: @user, status: :created, location: @user
+     #UserMailer.with(user: @user).welcome_email.deliver_later
+      #UserMailer.with(user: @user).welcome_email
+      DelayUserWelcomeJob.new(@user).enqueue(wait: 10.seconds)
+      OneWeekUserJob.new(@user).enqueue(wait: 1.weeks)
+        render json: @user, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -87,7 +89,17 @@ class UsersController < ApplicationController
     UserMailer.with(user: @user,reason:params[:reason]).closed_account.deliver_later
     @user.destroy
   end
-
+  #verificar token de mierda
+  def token_verify
+    user_tmp = User.find(params[:id])
+    if user_tmp.authentication_token == params[:authentication_token]
+      $granted = true
+      render json: $granted
+    else
+      $granted = false
+      render json: $granted
+    end
+  end
   private
     def set_user
       @user = User.find(params[:id])

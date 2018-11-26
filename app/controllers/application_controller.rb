@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
 
  include ActionController::MimeResponds
+ $granted = false
 
 #  acts_as_token_authentication_handler_for User
 #

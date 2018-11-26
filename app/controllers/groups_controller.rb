@@ -3,63 +3,87 @@ class GroupsController < ApplicationController
 
   # GET /groups
   def index
-    #@groups = Group.paginate(:page => params[:page], :per_page => 2)
-    #@groups = Group.nameSons
-    #@groups = Group.selectIdName
-    #@groups = Group.groupsUseropluckIdName
-   #id=User.find(params[:id])
-   #@groups= Group.gu(id)
-    if params[:groupsUserbyname] != nil
-    nombre=User.paginate(:page => params[:page],:per_page => params[:per_page]).find_by_name(params[:groupsUserbyname]).name
-    @groups= Group.gu2(nombre)
+    if $granted
+      $granted = false
+      #------------------------------------------------------------------------------------------------------
+      #@groups = Group.paginate(:page => params[:page], :per_page => 2)
+      #@groups = Group.nameSons
+      #@groups = Group.selectIdName
+      #@groups = Group.groupsUseropluckIdName
+     #id=User.find(params[:id])
+     #@groups= Group.gu(id)
+      if params[:groupsUserbyname] != nil
+      nombre=User.paginate(:page => params[:page],:per_page => params[:per_page]).find_by_name(params[:groupsUserbyname]).name
+      @groups= Group.gu2(nombre)
 
+      elsif params[:groupsUserbyid] != nil
+        id=User.paginate(:page => params[:page],:per_page => params[:per_page]).find_by_id(params[:groupsUserbyid]).id
+        @groups= Group.gu(id)
 
-    elsif params[:groupsUserbyid] != nil
-
-      id=User.paginate(:page => params[:page],:per_page => params[:per_page]).find_by_id(params[:groupsUserbyid]).id
-      @groups= Group.gu(id)
-
-
-
+      elsif params[:name] != nil
+         @groups = Group.nameGroup(params[:name]).paginate(:page => params[:page],:per_page => params[:per_page])
+      else
+        @groups =Group.paginate(:page => params[:page],:per_page => params[:per_page])
+      end
+      render json: @groups
+      #--------------------------------------------------------------------------------------------------------------
     else
-
-      @groups =Group.paginate(:page => params[:page],:per_page => params[:per_page])
-
-
+      render json: $granted
     end
-
-
-    render json: @groups
   end
 
   # GET /groups/1
   def show
-    render json: @group
+    if $granted
+      $granted = false
+      render json: @group
+    else
+      render json: $granted
+    end
   end
 
   # POST /groups
   def create
-    @group = Group.new(group_params)
+    if $granted
+      $granted = false
+      #-----------------------------------------------------------------------------------
+      @group = Group.new(group_params)
 
-    if @group.save
-      render json: @group, status: :created, location: @group
+      if @group.save
+        render json: @group, status: :created, location: @group
+      else
+        render json: @group.errors, status: :unprocessable_entity
+      end
+      #-------------------------------------------------------------------------------
     else
-      render json: @group.errors, status: :unprocessable_entity
+      render json: $granted
     end
   end
 
   # PATCH/PUT /groups/1
   def update
-    if @group.update(group_params)
-      render json: @group
+    if $granted
+      $granted = false
+      #-------------------------------------------------------------------------------------
+      if @group.update(group_params)
+        render json: @group
+      else
+        render json: @group.errors, status: :unprocessable_entity
+      end
+      #------------------------------------------------------------------------------------
     else
-      render json: @group.errors, status: :unprocessable_entity
+      render json: $granted
     end
   end
 
   # DELETE /groups/1
   def destroy
-    @group.destroy
+    if $granted
+      $granted = false
+      @group.destroy
+    else
+      render json: $granted
+    end
   end
 
   private

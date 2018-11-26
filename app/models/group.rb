@@ -35,7 +35,7 @@ class Group < ApplicationRecord
 
 
   #grupos cuyo nombre contenga "sons"
-  scope :nameSons, -> {where("name LIKE ?", "%sons%")}
+  scope :nameGroup, -> (name){where("name LIKE ?", name )}
 
   scope :groupsUserbyid, ->(id){joins(:users).where("users.id = ?",id)}
   scope :groupsUserbyname, ->(name){joins(:users).where("users.name LIKE ?",name)}
