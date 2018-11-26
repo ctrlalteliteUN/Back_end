@@ -5,7 +5,9 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
+
     if $granted
+
       $granted = false
 
       if params[:body] != nil
@@ -19,7 +21,11 @@ class PostsController < ApplicationController
         @posts=Post.pt(nombre)
 
       else
-        @posts = Post.paginate(:page => params[:page],:per_page => params[:per_page])
+        if params[:group_id] != nil
+          @posts = Post.where(group_id: params[:group_id])
+        else
+          @posts = Post.paginate(:page => params[:page],:per_page => params[:per_page])
+        end
       end
 
       respond_to do |format|
@@ -42,7 +48,6 @@ class PostsController < ApplicationController
 
 
   end
-
 
 
   # GET /posts/1
@@ -123,6 +128,6 @@ class PostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.require(:post).permit(:user_id, :title, :body, :solicitud, :lat, :lng)
+      params.require(:post).permit(:user_id, :title, :body, :solicitud, :lat, :lng,:group_id)
     end
 end

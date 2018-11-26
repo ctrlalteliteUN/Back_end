@@ -6,17 +6,14 @@
 #  authentication_token   :string(30)
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  image                  :text
 #  name                   :string
 #  password               :string
 #  password_confirmation  :string
 #  perimission_level      :integer
-#  provider               :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  score                  :float
-#  uid                    :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
