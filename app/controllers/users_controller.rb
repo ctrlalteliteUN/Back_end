@@ -67,7 +67,8 @@ class UsersController < ApplicationController
     if @user.save
      #UserMailer.with(user: @user).welcome_email.deliver_later
       #UserMailer.with(user: @user).welcome_email
-        UpdateScoreJob.new(@user).enqueue(wait: 3.minutes)
+      DelayUserWelcomeJob.new(@user).enqueue(wait: 10.seconds)
+      OneWeekUserJob.new(@user).enqueue(wait: 1.weeks)
         render json: @user, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity

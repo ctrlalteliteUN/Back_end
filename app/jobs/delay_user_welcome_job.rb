@@ -1,4 +1,4 @@
-class UpdateScoreJob < ApplicationJob
+class DelayUserWelcomeJob < ApplicationJob
   queue_as :default
 
   def perform(user)
