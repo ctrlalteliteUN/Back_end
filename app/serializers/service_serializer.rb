@@ -18,7 +18,7 @@
 #
 
 class ServiceSerializer < ActiveModel::Serializer
-  attributes :id,:score,:state,:created_at,:updated_at,:post_id
+  attributes :id,:state,:created_at,:updated_at,:post_id
   
   belongs_to :post
 

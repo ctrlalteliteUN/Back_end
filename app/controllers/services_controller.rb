@@ -5,6 +5,8 @@ class ServicesController < ApplicationController
   def index
     if $granted
       $granted = false
+      @services = Service.all
+      render json: @services
     else
       render json: $granted
     end
@@ -12,7 +14,7 @@ class ServicesController < ApplicationController
     @services = Service.all
     #Service.create( score: 3, post_id: 1)
     #@services = Service.create( score: 3, post_id: 1)
-    render json: @services
+
     #---------------------------------------------------------------------------
   end
 
@@ -20,20 +22,21 @@ class ServicesController < ApplicationController
   def show
     if $granted
       $granted = false
+      render json: @service
     else
-      render json: $granted
-    end
 
-    render json: @service
+    end
+    render json: $granted
+
   end
 
   # POST /services
   def create
     if $granted
       $granted = false
-    else
-      render json: $granted
-    end
+
+
+
     #--------------------------------------------------------------------------------------
     @service = Service.new(service_params)
 
@@ -47,6 +50,10 @@ class ServicesController < ApplicationController
     else
       render json: @service.errors, status: :unprocessable_entity
     end
+    else
+      render json: $granted
+    end
+
     #--------------------------------------------------------------------------------------
   end
 
@@ -54,9 +61,7 @@ class ServicesController < ApplicationController
   def update
     if $granted
       $granted = false
-    else
-      render json: $granted
-    end
+
     #---------------------------------------------------------------------------------------
     if @service.update(service_params)
       render json: @service
@@ -64,6 +69,9 @@ class ServicesController < ApplicationController
       render json: @service.errors, status: :unprocessable_entity
     end
     #-------------------------------------------------------------------------------------
+    else
+      render json: $granted
+    end
   end
 
   # DELETE /services/1
