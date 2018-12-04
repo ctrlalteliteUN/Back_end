@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   # GET /posts
   def index
 
-    render json: {token: request.headers["Authorization"], id: request.headers["Host"] }
+    render json: {token: request.headers["Authorization"], id: request.headers["ID"] }
 
 
 =begin
