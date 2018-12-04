@@ -884,6 +884,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/controllers/posts_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
@@ -910,3 +911,7 @@
     </entry>
   </component>
 </project>
+=======
+  </component>
+</project>
+>>>>>>> da8438dd864b639a40787da5321d2ebec5a511ea
