@@ -89,8 +89,14 @@ class UsersController < ApplicationController
     UserMailer.with(user: @user,reason:params[:reason]).closed_account.deliver_later
     @user.destroy
   end
+  
+  
+  
   #verificar token de mierda
   def token_verify
+
+    #render json: {id: params["user"]["id"], params: params}
+    
     user_tmp = User.find(params[:id])
     if user_tmp.authentication_token == params[:authentication_token]
       $granted = true
@@ -100,6 +106,9 @@ class UsersController < ApplicationController
       render json: $granted
     end
   end
+
+
+
   private
     def set_user
       @user = User.find(params[:id])

@@ -6,6 +6,10 @@ class PostsController < ApplicationController
   # GET /posts
   def index
 
+    render json: params
+
+
+=begin
     if $granted
 
       $granted = false
@@ -45,7 +49,7 @@ class PostsController < ApplicationController
     else
       render json: $granted
     end
-
+=end
 
   end
 
