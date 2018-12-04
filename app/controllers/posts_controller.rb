@@ -6,11 +6,10 @@ class PostsController < ApplicationController
   # GET /posts
   def index
 
-    render json: {token: request.headers["Authorization"], id: request.headers["ID"] }
+    #render json: {token: request.headers["Authorization"], id: request.headers["ID"] }
 
 
-=begin
-    if $granted
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
 
       $granted = false
 
@@ -49,7 +48,6 @@ class PostsController < ApplicationController
     else
       render json: $granted
     end
-=end
 
   end
 

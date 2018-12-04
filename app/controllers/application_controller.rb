@@ -3,6 +3,20 @@ class ApplicationController < ActionController::API
  include ActionController::MimeResponds
  $granted = false
 
+
+    private
+
+    def token_auth(token,id)
+        user = User.find(id)
+        if user.authentication_token == token
+            return true
+        else
+            return false
+        end
+
+    end
+
+
 #  acts_as_token_authentication_handler_for User
 #
 #  private
