@@ -10,7 +10,7 @@ class PostsController < ApplicationController
 
 
     if token_auth(request.headers["Authorization"],request.headers["ID"])
-      
+
 
       if params[:body] != nil
         @posts = Post.bodys(params[:body]).paginate(:page => params[:page],:per_page => params[:per_page])
@@ -53,18 +53,18 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       render json: @post
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # POST /posts
   def create
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       #----------------------------------------------------------------------
       @post = Post.new(post_params)
       if @post.save
@@ -75,7 +75,7 @@ class PostsController < ApplicationController
       end
       #-----------------------------------------------------------------
     else
-      render json: $granted
+      render json: false
     end
 
 
@@ -84,8 +84,8 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1
   def update
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       #----------------------------------------------------------------------
       if @post.update(post_params)
         render json: @post
@@ -94,20 +94,20 @@ class PostsController < ApplicationController
       end
       #--------------------------------------------------------------------
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # DELETE /posts/1
   def destroy
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       #-----------------------------------------------------------------------------------------------
       PostMailer.with(user: User.find(@post.user_id),post: @post,reason:params[:reason]).Deleted.deliver_later
       @post.destroy
       #-------------------------------------------------------------------------------------------
     else
-      render json: $granted
+      render json: false
     end
   end
 

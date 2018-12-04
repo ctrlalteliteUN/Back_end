@@ -3,12 +3,12 @@ class ServicesController < ApplicationController
 
   # GET /services
   def index
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       @services = Service.all
       render json: @services
     else
-      render json: $granted
+      render json: false
     end
     #------------------------------------------------------------------------
 
@@ -20,20 +20,20 @@ class ServicesController < ApplicationController
 
   # GET /services/1
   def show
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       render json: @service
     else
 
     end
-    render json: $granted
+    render json: false
 
   end
 
   # POST /services
   def create
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
 
 
 
@@ -51,7 +51,7 @@ class ServicesController < ApplicationController
         render json: @service.errors, status: :unprocessable_entity
       end
     else
-      render json: $granted
+      render json: false
     end
 
     #--------------------------------------------------------------------------------------
@@ -59,8 +59,8 @@ class ServicesController < ApplicationController
 
   # PATCH/PUT /services/1
   def update
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
 
       #---------------------------------------------------------------------------------------
       if @service.update(service_params)
@@ -70,17 +70,17 @@ class ServicesController < ApplicationController
       end
       #-------------------------------------------------------------------------------------
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # DELETE /services/1
   def destroy
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       @service.destroy
     else
-      render json: $granted
+      render json: false
     end
   end
 

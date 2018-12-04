@@ -3,8 +3,8 @@ class GroupsController < ApplicationController
 
   # GET /groups
   def index
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       #------------------------------------------------------------------------------------------------------
       #@groups = Group.paginate(:page => params[:page], :per_page => 2)
       #@groups = Group.nameSons
@@ -28,24 +28,24 @@ class GroupsController < ApplicationController
       render json: @groups
       #--------------------------------------------------------------------------------------------------------------
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # GET /groups/1
   def show
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       render json: @group
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # POST /groups
   def create
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       #-----------------------------------------------------------------------------------
       @group = Group.new(group_params)
 
@@ -56,14 +56,14 @@ class GroupsController < ApplicationController
       end
       #-------------------------------------------------------------------------------
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # PATCH/PUT /groups/1
   def update
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       #-------------------------------------------------------------------------------------
       if @group.update(group_params)
         render json: @group
@@ -72,17 +72,17 @@ class GroupsController < ApplicationController
       end
       #------------------------------------------------------------------------------------
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # DELETE /groups/1
   def destroy
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       @group.destroy
     else
-      render json: $granted
+      render json: false
     end
   end
 

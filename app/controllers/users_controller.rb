@@ -100,10 +100,10 @@ class UsersController < ApplicationController
     user_tmp = User.find(params[:id])
     if user_tmp.authentication_token == params[:authentication_token]
       $granted = true
-      render json: $granted
+      render json: false
     else
-      $granted = false
-      render json: $granted
+      
+      render json: false
     end
   end
 

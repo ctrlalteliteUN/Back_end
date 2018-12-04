@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
 
  include ActionController::MimeResponds
- $granted = false
+ 
 
 
     private

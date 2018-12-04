@@ -3,29 +3,29 @@ class RecordsController < ApplicationController
 
   # GET /records
   def index
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       @records = Record.all
       render json: @records
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # GET /records/1
   def show
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       render json: @record
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # POST /records
   def create
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       #------------------------------------------------------------------------------------
       @record = Record.new(record_params)
 
@@ -36,14 +36,14 @@ class RecordsController < ApplicationController
       end
       #---------------------------------------------------------------------------------
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # PATCH/PUT /records/1
   def update
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       #----------------------------------------------------------------------
       if @record.update(record_params)
         render json: @record
@@ -52,17 +52,17 @@ class RecordsController < ApplicationController
       end
       #----------------------------------------------------------------------
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # DELETE /records/1
   def destroy
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       @record.destroy
     else
-      render json: $granted
+      render json: false
     end
   end
 

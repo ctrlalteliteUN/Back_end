@@ -4,28 +4,28 @@ class TagsController < ApplicationController
 
   # GET /tags
   def index
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       render json: @post.tags
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # GET /tags/1
   def show
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       render json: @tag
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # POST /tags
   def create
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       #-------------------------------------------------------------------------------------------------
       @tag = Tag.new(tag_params)
       #association between post
@@ -40,14 +40,14 @@ class TagsController < ApplicationController
       end
       #--------------------------------------------------------------------------------------------------
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # PATCH/PUT /tags/1
   def update
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       #------------------------------------------------------------------------
       if @tag.update(tag_params)
         render json: @tag
@@ -56,17 +56,17 @@ class TagsController < ApplicationController
       end
       #------------------------------------------------------------------------
     else
-      render json: $granted
+      render json: false
     end
   end
 
   # DELETE /tags/1
   def destroy
-    if $granted
-      $granted = false
+    if token_auth(request.headers["Authorization"],request.headers["ID"])
+      
       @tag.destroy
     else
-      render json: $granted
+      render json: false
     end
   end
 
