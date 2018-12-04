@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   # GET /posts
   def index
 
-    render json: params
+    render json: request.headers["Authorization"]
 
 
 =begin
