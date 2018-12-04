@@ -10,8 +10,7 @@ class PostsController < ApplicationController
 
 
     if token_auth(request.headers["Authorization"],request.headers["ID"])
-
-      $granted = false
+      
 
       if params[:body] != nil
         @posts = Post.bodys(params[:body]).paginate(:page => params[:page],:per_page => params[:per_page])
@@ -46,7 +45,7 @@ class PostsController < ApplicationController
       end
       #render json: @posts
     else
-      render json: $granted
+      render json: false
     end
 
   end
