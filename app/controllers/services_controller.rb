@@ -21,12 +21,12 @@ class ServicesController < ApplicationController
   # GET /services/1
   def show
     if token_auth(request.headers["Authorization"],request.headers["ID"])
-      
+      @service = Service.find(1)
       render json: @service
     else
-
+      render json: false
     end
-    render json: false
+    
 
   end
 
@@ -34,9 +34,6 @@ class ServicesController < ApplicationController
   def create
     if token_auth(request.headers["Authorization"],request.headers["ID"])
       
-
-
-
       #--------------------------------------------------------------------------------------
       @service = Service.new(service_params)
 
