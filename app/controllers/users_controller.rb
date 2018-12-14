@@ -28,6 +28,28 @@ class UsersController < ApplicationController
 
   # GET /posts/1
   def show
+
+
+
+    cantidad = User.cshu(params[:id])
+    @cantidad2 = User.cshu2(params[:id]).as_json
+
+    acumulado = 0.0
+    total = 0.0
+    no_null_c = 0.0
+    for i in 0..(cantidad -1)
+      if @cantidad2[i]["score"] != nil
+        no_null_c = no_null_c +1
+        acumulado = acumulado + @cantidad2[i]["score"]
+
+      end
+
+    end
+    total = acumulado / no_null_c
+    puts total
+
+    @user.score = total
+
     respond_to do |format|
 
       format.html do
@@ -43,7 +65,10 @@ class UsersController < ApplicationController
           end
 
         else
+
           render json: @user
+
+
         end
       end
 
@@ -116,6 +141,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:user_id, :title, :body, :password_confirmation, :password, :perimission_level,:email,:name)
+      params.require(:user).permit(:user_id, :title, :body, :password_confirmation, :password, :perimission_level,:email,:name,:score)
     end
 end
