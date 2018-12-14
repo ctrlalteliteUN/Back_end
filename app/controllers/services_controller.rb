@@ -38,7 +38,9 @@ class ServicesController < ApplicationController
       @service = Service.new(service_params)
 
       if @service.save
-        service_has_user = ServiceHasUser.new(@service[:id],params[:user_service_id])
+        service_has_user = ServiceHasUser.new()
+        service_has_user[:service_id] = @service[:id]
+        service_has_user[:user_id] = params[:user_service_id]
         if service_has_user.save
           render json: @service, status: :created, location: @service
         else
