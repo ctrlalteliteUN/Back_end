@@ -68,7 +68,20 @@ class ServicesController < ApplicationController
 
       #---------------------------------------------------------------------------------------
       if @service.update(service_params)
-        render json: @service
+        relaciones = ServiceHasUser.where(service_id:@service[:id])
+        service_has_user1 = relaciones[0]
+        service_has_user2 = relaciones[1]
+        service_has_user1[:service_id] = @service[:id]
+        service_has_user1[:user_id] = params[:user_service_id]
+        service_has_user1[:score] = params[:score_post]
+        service_has_user2[:service_id] = @service[:id]
+        service_has_user2[:user_id] = Post.find(@service[:post_id])[:user_id]
+        service_has_user2[:score] = params[:score_service]
+        if service_has_user1.save && service_has_user2.save
+          render json: @service
+        else
+          render json: @service.errors, status: :unprocessable_entity
+        end
       else
         render json: @service.errors, status: :unprocessable_entity
       end
