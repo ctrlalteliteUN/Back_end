@@ -46,7 +46,7 @@ class ServicesController < ApplicationController
         service_has_user2[:service_id] = @service[:id]
         service_has_user2[:user_id] = Post.find(@service[:post_id])[:user_id]
         service_has_user2[:score] = params[:score_service]
-        if service_has_user.save && service_has_user2.save
+        if service_has_user1.save && service_has_user2.save
           render json: @service, status: :created, location: @service
         else
           render json: @service.errors, status: :unprocessable_entity
