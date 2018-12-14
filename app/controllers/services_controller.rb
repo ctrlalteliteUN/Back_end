@@ -38,10 +38,15 @@ class ServicesController < ApplicationController
       @service = Service.new(service_params)
 
       if @service.save
-        service_has_user = ServiceHasUser.new()
-        service_has_user[:service_id] = @service[:id]
-        service_has_user[:user_id] = params[:user_service_id]
-        if service_has_user.save
+        service_has_user1 = ServiceHasUser.new()
+        service_has_user2 = ServiceHasUser.new()
+        service_has_user1[:service_id] = @service[:id]
+        service_has_user1[:user_id] = params[:user_service_id]
+        service_has_user1[:score] = params[:score_post]
+        service_has_user2[:service_id] = @service[:id]
+        service_has_user2[:user_id] = Post.find(@service[:post_id])[:user_id]
+        service_has_user2[:score] = params[:score_service]
+        if service_has_user.save && service_has_user2.save
           render json: @service, status: :created, location: @service
         else
           render json: @service.errors, status: :unprocessable_entity
@@ -91,6 +96,6 @@ class ServicesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def service_params
-    params.require(:service).permit(:score, :post_id)
+    params.require(:service).permit(:score, :post_id,:state)
   end
 end
