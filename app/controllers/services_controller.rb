@@ -21,7 +21,7 @@ class ServicesController < ApplicationController
   # GET /services/1
   def show
     if token_auth(request.headers["Authorization"],request.headers["ID"])
-      @service = Service.find(1)
+      @service = Service.find(params[:id])
       render json: @service
     else
       render json: false
