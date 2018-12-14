@@ -19,7 +19,7 @@
 
 class Service < ApplicationRecord
 
-  validates :score, presence: true
+  #validates :score, presence: true
 
   #associations
   belongs_to :post
