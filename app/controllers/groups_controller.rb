@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :update, :destroy]
 
+
   # GET /groups
   def index
     if token_auth(request.headers["Authorization"],request.headers["ID"])
@@ -50,7 +51,12 @@ class GroupsController < ApplicationController
       @group = Group.new(group_params)
 
       if @group.save
-        render json: @group, status: :created, location: @group
+        if params[:user_id] != nil
+        @user_has_group = UserHasGroup.new(group_id: @group.id, user_id: params[:user_id])
+        end
+        if @user_has_group.save
+          render json: @group, status: :created, location: @group
+        end
       else
         render json: @group.errors, status: :unprocessable_entity
       end
@@ -86,7 +92,12 @@ class GroupsController < ApplicationController
     end
   end
 
+
+
+
   private
+
+
     # Use callbacks to share common setup or constraints between actions.
     def set_group
       @group = Group.find(params[:id])
